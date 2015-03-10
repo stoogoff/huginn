@@ -27,12 +27,12 @@ namespace Huginn.Couch {
 
 		protected string DatabaseUrl {
 			get {
-				return string.Format("http://{0}:{1}/{2}", Host, Port, Database);
+				return string.Format("http://{0}:{1}/{2}/", Host, Port, Database);
 			}
 		}
 
 		#region Single object crud methods
-		public T Get<T>(string id) {
+		public T GetDocument<T>(string id) {
 			return Execute<T>(new RestRequest(id, Method.GET));
 		}
 
@@ -67,6 +67,23 @@ namespace Huginn.Couch {
 
 			return response.Uuids[0];
 		}
+
+		#region Views
+		public ViewResult<T> GetView<T>(string designDoc, string view) {
+			var request = new RestRequest(string.Format("_design/{0}/_view/{1}", designDoc, view), Method.GET);
+
+			return Execute<ViewResult<T>>(request);
+		}
+
+		public ViewResult<T> GetView<T>(string designDoc, string view, ViewQuery query) {
+			var request = new RestRequest(string.Format("_design/{0}/_view/{1}?{2}", designDoc, view, query), Method.GET);
+
+			Console.WriteLine(request.Resource);
+			Console.WriteLine(query);
+
+			return Execute<ViewResult<T>>(request);
+		}
+		#endregion
 
 		protected T Execute<T>(string url, RestRequest request) {
 			var client = new RestClient(url);

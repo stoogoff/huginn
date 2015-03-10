@@ -33,7 +33,7 @@ namespace Huginn.Modules {
 				var id = parameters.id.ToString();
 				var client = GetClient();
 
-				return client.Get<T>(id);
+				return client.GetDocument<T>(id);
 			};
 
 			Put["/{id}"] = parameters => {
@@ -56,7 +56,7 @@ namespace Huginn.Modules {
 		}
 
 		protected CouchClient GetClient() {
-			return new CouchClient("test");
+			return new CouchClient("muninn");
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace monotest {
 			StaticConfiguration.DisableErrorTraces = false;
 
 			var uri = "http://localhost:8888";
-			Console.WriteLine(uri);
+			Console.WriteLine("Listening: {0}", uri);
 
 			var host = new NancyHost(new Uri(uri));
 
