@@ -1,12 +1,14 @@
 ﻿using System;
 using Nancy;
 using Nancy.ModelBinding;
-using Huginn.Couch;
 using Newtonsoft.Json;
+using Huginn.Couch;
+using Huginn.Managers;
 
 namespace Huginn.Modules {
-	public abstract class ModelModule<T>: NancyModule {
+	public abstract class ModelModule<T>: NancyModule where T: Huginn.Models.BaseModel {
 		//private int userId = 2;
+		protected BaseManager<T> manager;
 
 		public ModelModule(string basePath): base(basePath) {
 			/*Before += context => {
@@ -16,47 +18,36 @@ namespace Huginn.Modules {
 			};*/
 
 			// index of T
-			/*
-			Get["/"] = parameters => {
-
-			};*/
+			Get["/"] = parameters => manager.All();
 
 			Post["/"] = parameters => {
-				var client = GetClient();
 				var model = this.Bind<T>();
 
-				return client.Save(model);
+				return manager.Save(model);
 			};
 
 			// single T based on ID
 			Get["/{id}"] = parameters => {
 				var id = parameters.id.ToString();
-				var client = GetClient();
 
-				return client.GetDocument<T>(id);
+				return manager.Get(id);
 			};
 
 			Put["/{id}"] = parameters => {
 				var id = parameters.id.ToString();
-				var client = GetClient();
 				var model = this.Bind<T>();
 
-				return client.Save(id, model);
+				return manager.Save(id, model);
 			};
 
 			Delete["/{id}/{revision}"] = parameters => {
 				var id = parameters.id.ToString();
 				var revision = parameters.revision.ToString();
-				var client = GetClient();
 
-				return client.Delete(id, revision);
+				return manager.Delete(id, revision);
 			};
 
 			// TODO versions
-		}
-
-		protected CouchClient GetClient() {
-			return new CouchClient("muninn");
 		}
 	}
 }

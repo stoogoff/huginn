@@ -1,16 +1,20 @@
 ﻿using System;
+using Huginn.Managers;
 
 namespace Huginn.Modules {
 	public class NovelModule: ModelModule <Huginn.Models.Novel> {
 		public NovelModule(): base("/novels") {
-			Get["/view"] = parameters => {
-				var client = GetClient();
-				var query = new Huginn.Couch.ViewQuery{
-					StartKey = "[2]",
-					EndKey = "[2,{}]"
-				};
+			manager = new NovelManager();
 
-				return client.GetView<Huginn.Models.Novel>("novels", "by_author", query);
+			Get["/{id}/chapters"] = parameters => {
+				var id = parameters.id.ToString();
+
+				return (manager as NovelManager).Chapters(id);
+			};
+			Get["/{id}/entities"] = parameters => {
+				var id = parameters.id.ToString();
+
+				return (manager as NovelManager).Entities(id);
 			};
 		}
 	}

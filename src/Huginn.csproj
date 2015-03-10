@@ -42,13 +42,13 @@
     <Compile Include="Modules\EntityModule.cs" />
     <Compile Include="Modules\ProfileModule.cs" />
     <Compile Include="Models\Profile.cs" />
-    <Compile Include="Models\Test.cs" />
-    <Compile Include="Modules\TestModule.cs" />
     <Compile Include="Couch\CouchClient.cs" />
     <Compile Include="Couch\CouchResponse.cs" />
     <Compile Include="Couch\Uuid.cs" />
     <Compile Include="Couch\ViewResult.cs" />
     <Compile Include="Couch\ViewQuery.cs" />
+    <Compile Include="Managers\BaseManager.cs" />
+    <Compile Include="Managers\NovelManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
@@ -73,6 +73,7 @@
     <Folder Include="Models\" />
     <Folder Include="Modules\" />
     <Folder Include="Couch\" />
+    <Folder Include="Managers\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
