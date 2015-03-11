@@ -19,9 +19,18 @@ namespace Huginn.Data {
 		[JsonProperty("sort")]
 		public int Sort { get; set; }
 
+		[JsonIgnore]
+		public string NextSibling { get; set; }
+
 		// TODO redis cache
 		[JsonIgnore]
-		public int WordCount { get; set; }
+		public int WordCount {
+			get {
+				var total = Content.Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
+
+				return total.Length;
+			}
+		}
 
 		public Chapter Summarise() {
 			if(Content != null) {
@@ -36,16 +45,6 @@ namespace Huginn.Data {
 		public Chapter ConvertEntities(IList<Entity> entities) {
 			// TODO basic mustache syntax
 			RawContent = Content;
-
-			return this;
-		}
-
-		public Chapter Count() {
-			if(Content != null) {
-				var total = Content.Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-				WordCount = total.Length;
-			}
 
 			return this;
 		}

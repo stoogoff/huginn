@@ -5,7 +5,7 @@ using Huginn.Managers;
 namespace Huginn.Modules {
 	public class EntityModule: ModelModule<Entity> {
 		public EntityModule(): base("/entities") {
-			manager = new Manager<Entity>("entities");
+			manager = new EntityManager();
 		}
 	}
 }

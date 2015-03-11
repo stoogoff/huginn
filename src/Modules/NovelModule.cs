@@ -8,6 +8,15 @@ namespace Huginn.Modules {
 		public NovelModule(): base("/novels") {
 			manager = new NovelManager();
 
+			Get["/archive"] = parameters => {
+				try {
+					return GetResponse((manager as NovelManager).Archive());
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
+			};
+
 			Get["/{id}/chapters"] = parameters => {
 				try {
 					var id = parameters.id.ToString();

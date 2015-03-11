@@ -1,51 +1,123 @@
 ﻿using System.Collections.Generic;
 using Huginn.Data;
 using Huginn.Couch;
+using Huginn.JsonModels;
 
 namespace Huginn.Managers {
-	public class NovelManager: Manager<Novel> {
-		public NovelManager(): base("novels") {
-		}
+	public class NovelManager: DataManager<Novel> {
+		public NovelManager(): base("novels") {}
 
-		public override IList<Novel> All() {
+		public override IModel All() {
 			// TODO chapter count
-			// TODO word count
 
-			var novels = base.All();
+			var model = new NovelsJson();
 
+			model.Novels = AllObjects<Novel>();
 
-
-			return novels;
+			return model;
 		}
 
-		public IList<Chapter> Chapters(string id) {
+		public override IModel Get(string id) {
+			var model = new NovelJson();
+
+			model.Novel = GetObject<Novel>(id);
+			model.Chapters = GetChaptersForNovel(id);
+			model.Entities = GetEntitiesForNovel(id);
+			model.Profiles = GetProfilesForNovel(model.Novel.Contributors);
+
+			return model;
+		}
+
+		public override IModel Save(Novel data) {
+			var model = new NovelJson();
+
+			model.Novel = SaveObject(data);
+
+			return model;
+		}
+
+		public override IModel Save(string id, Novel data) {
+			var model = new NovelJson();
+
+			model.Novel = SaveObject(data);
+
+			return model;
+		}
+
+		public ChaptersJson Chapters(string id) {
+			var model = new ChaptersJson();
+
+			model.Chapters = GetChaptersForNovel(id);
+
+			return model;
+		}
+
+		public NovelsJson Archive() {
+			var model = new NovelsJson();
+			var query = new ViewQuery {
+				StartKey = "[" + AuthorId + "]",
+				EndKey = "[" + AuthorId + ",{}]"
+			};
+			var response = Client.GetView<Novel>(view, "archived_by_author", query);
+
+			model.Novels = ConvertView<Novel>(response);
+
+			return model;
+		}
+
+		public EntitiesJson Entities(string id) {
+			var model = new EntitiesJson();
+
+			model.Entities = GetEntitiesForNovel(id);
+
+			return model;
+		}
+
+		protected IList<Chapter> GetChaptersForNovel(string id) {
 			var query = new ViewQuery {
 				StartKey = "[\"" + id + "\"]",
 				EndKey = "[\"" + id + "\",{}]",
 			};
-			var response = client.GetView<Chapter>("articles", "by_novel", query);
+			var response = Client.GetView<Chapter>("articles", "by_novel", query);
 			var chapters = ConvertView<Chapter>(response);
 			var entities = Entities(id);
 
 			foreach(var chapter in chapters) {
-				chapter.Count().Summarise().ConvertEntities(entities);
+				chapter.Summarise().ConvertEntities(entities.Entities);
 			}
 
 			return chapters;
 		}
 
-		public IList<Entity> Entities(string id) {
+		protected IList<Entity> GetEntitiesForNovel(string id) {
 			var query = new ViewQuery {
 				StartKey = "[" + AuthorId + "]",
 				EndKey = "[" + AuthorId + ",{}]",
 			};
-			var response = client.GetView<Entity>("entities", "by_author", query);
+			var response = Client.GetView<Entity>("entities", "by_author", query);
 			var entities = ConvertView<Entity>(response);
 			var list = new List<Entity>();
 
 			foreach(var entity in entities) {
 				if(entity.Novels != null && entity.Novels.Contains(id))
 					list.Add(entity);
+			}
+
+			return list;
+		}
+
+		protected IList<Profile> GetProfilesForNovel(IList<string> ids) {
+			var query = new ViewQuery {
+				StartKey = "[" + AuthorId + "]",
+				EndKey = "[" + AuthorId + ",{}]",
+			};
+			var response = Client.GetView<Profile>("contributors", "by_author", query);
+			var profiles = ConvertView<Profile>(response);
+			var list = new List<Profile>();
+
+			foreach(var profile in profiles) {
+				if(ids.Contains(profile.Id))
+					list.Add(profile);
 			}
 
 			return list;

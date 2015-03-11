@@ -7,12 +7,14 @@ using Huginn.Exceptions;
 
 namespace Huginn.Modules {
 	public abstract class ModelModule<T>: NancyModule where T: Huginn.Data.BaseData {
-		protected Manager<T> manager; // This **must** be set by inheriting classes
+		protected DataManager<T> manager; // This **must** be set by inheriting classes
 
 		protected ModelModule(string basePath): base(basePath) {
 			Before += context => {
+				manager.AuthorId = 2;
+				return null;
 				// This may be better as an Authorization header
-				var authors = context.Request.Headers["X-AUTHOR"];
+				/*var authors = context.Request.Headers["X-AUTHOR"];
 
 				foreach(var author in authors) {
 					int authorId;
@@ -23,7 +25,7 @@ namespace Huginn.Modules {
 					}
 				}
 
-				return manager.AuthorId == 0 ? GetResponse(new UnauthorisedException()) : null;
+				return manager.AuthorId == 0 ? GetResponse(new UnauthorisedException()) : null;*/
 			};
 
 			// index of T

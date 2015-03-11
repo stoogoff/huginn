@@ -29,6 +29,13 @@ namespace Huginn.Data {
 		public int? Image { get; set; }
 
 		[JsonIgnore]
+		public bool CanEdit {
+			get {
+				return !(Trash || Archive);
+			}
+		}
+
+		[JsonIgnore]
 		public int ChapterCount { get; set; }
 
 		[JsonIgnore]
