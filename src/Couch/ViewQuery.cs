@@ -47,7 +47,7 @@ namespace Huginn.Couch {
 				var attributes = property.CustomAttributes;
 
 				foreach(var attribute in attributes) {
-					if(attribute.AttributeType == typeof(Newtonsoft.Json.JsonPropertyAttribute)) {
+					if(attribute.AttributeType == typeof(JsonPropertyAttribute)) {
 						name = attribute.ConstructorArguments[0].Value.ToString();
 						break;
 					}

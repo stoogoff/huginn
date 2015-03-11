@@ -23,11 +23,7 @@ namespace Huginn.Modules {
 					}
 				}
 
-				if(manager.AuthorId == 0) {
-					return GetResponse(new UnauthorisedException());
-				}
-
-				return null;
+				return manager.AuthorId == 0 ? GetResponse(new UnauthorisedException()) : null;
 			};
 
 			// index of T

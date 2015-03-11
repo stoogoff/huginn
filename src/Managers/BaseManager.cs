@@ -27,22 +27,17 @@ namespace Huginn.Managers {
 		}
 
 		public virtual T Get(string id) {
-			// TODO handle 404
 			return client.GetDocument<T>(id);
 		}
 
 		public virtual T Save(T model) {
 			var response = client.Save(model);
 
-			// TODO handle error
-
 			return Get(response.Id);
 		}
 
 		public virtual T Save(string id, T model) {
 			var response = client.Save(id, model);
-
-			// TODO handle error
 
 			return Get(response.Id);
 		}
