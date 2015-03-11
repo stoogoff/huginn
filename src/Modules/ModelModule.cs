@@ -1,15 +1,15 @@
 ﻿using System;
 using Nancy;
 using Nancy.ModelBinding;
-using Newtonsoft.Json;
-using Huginn.Couch;
+using Nancy.Responses;
 using Huginn.Managers;
+using Huginn.Exceptions;
 
 namespace Huginn.Modules {
 	public abstract class ModelModule<T>: NancyModule where T: Huginn.Models.BaseModel {
 		protected BaseManager<T> manager; // This **must** be set by inheriting classes
 
-		public ModelModule(string basePath): base(basePath) {
+		protected ModelModule(string basePath): base(basePath) {
 			Before += context => {
 				// This may be better as an Authorization header
 				var authors = context.Request.Headers["X-AUTHOR"];
@@ -23,42 +23,91 @@ namespace Huginn.Modules {
 					}
 				}
 
-				// TODO should throw an authentication error here
+				if(manager.AuthorId == 0) {
+					return GetResponse(new UnauthorisedException());
+				}
 
 				return null;
 			};
 
 			// index of T
-			Get["/"] = parameters => manager.All();
+			Get["/"] = parameters => {
+				try {
+					return GetResponse(manager.All());
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
+			};
 
 			Post["/"] = parameters => {
-				var model = this.Bind<T>();
+				try {
+					var model = this.Bind<T>();
 
-				return manager.Save(model);
+					return GetResponse(HttpStatusCode.Created, manager.Save(model));
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
 			};
 
 			// single T based on ID
 			Get["/{id}"] = parameters => {
-				var id = parameters.id.ToString();
+				try {
+					var id = parameters.id.ToString();
 
-				return manager.Get(id);
+					return GetResponse(manager.Get(id));
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
 			};
 
 			Put["/{id}"] = parameters => {
-				var id = parameters.id.ToString();
-				var model = this.Bind<T>();
+				try {
+					var id = parameters.id.ToString();
+					var model = this.Bind<T>();
 
-				return manager.Save(id, model);
+					return GetResponse(HttpStatusCode.Created, manager.Save(id, model));
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
 			};
 
 			Delete["/{id}/{revision}"] = parameters => {
-				var id = parameters.id.ToString();
-				var revision = parameters.revision.ToString();
+				try {
+					var id = parameters.id.ToString();
+					var revision = parameters.revision.ToString();
 
-				return manager.Delete(id, revision);
+					return GetResponse(HttpStatusCode.Created, manager.Delete(id, revision));
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
 			};
 
 			// TODO versions
+		}
+
+		protected Response GetResponse(object model) {
+			return GetResponse(HttpStatusCode.OK, model);
+		}
+
+		protected Response GetResponse(HttpStatusCode status, object model) {
+			var response = new JsonResponse(model, new DefaultJsonSerializer());
+
+			response.StatusCode = status;
+
+			return response;
+		}
+
+		protected Response GetResponse(ServiceException exception) {
+			var response = new JsonResponse<ServiceException>(exception, new DefaultJsonSerializer());
+
+			response.StatusCode = exception.StatusCode;
+
+			return response;
 		}
 	}
 }

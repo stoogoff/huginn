@@ -1,5 +1,7 @@
 ﻿using System;
+using Nancy;
 using Huginn.Managers;
+using Huginn.Exceptions;
 
 namespace Huginn.Modules {
 	public class NovelModule: ModelModule <Huginn.Models.Novel> {
@@ -7,14 +9,24 @@ namespace Huginn.Modules {
 			manager = new NovelManager();
 
 			Get["/{id}/chapters"] = parameters => {
-				var id = parameters.id.ToString();
+				try {
+					var id = parameters.id.ToString();
 
-				return (manager as NovelManager).Chapters(id);
+					return GetResponse((manager as NovelManager).Chapters(id));
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
 			};
 			Get["/{id}/entities"] = parameters => {
-				var id = parameters.id.ToString();
+				try {
+					var id = parameters.id.ToString();
 
-				return (manager as NovelManager).Entities(id);
+					return GetResponse((manager as NovelManager).Entities(id));
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
 			};
 		}
 	}

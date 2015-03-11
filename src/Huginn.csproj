@@ -51,6 +51,7 @@
     <Compile Include="Managers\NovelManager.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="Exceptions\ObjectNotFoundException.cs" />
+    <Compile Include="Exceptions\UnauthorisedException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">

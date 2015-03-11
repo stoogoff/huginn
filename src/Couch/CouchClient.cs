@@ -88,11 +88,11 @@ namespace Huginn.Couch {
 			var response = client.Execute(request);
 
 			if(response.ErrorException != null) {
-				throw new ServiceException(response.StatusCode, "Databse error", response.ErrorException);
+				throw new ServiceException(response.StatusCode, "Database error", response.ErrorException);
 			}
 
 			if(response.StatusCode == HttpStatusCode.NotFound) {
-				throw new ObjectNotFoundException(new Uri(request.Resource));
+				throw new ObjectNotFoundException(new Uri(url + request.Resource));
 			}
 
 			return JsonConvert.DeserializeObject<T>(response.Content);
