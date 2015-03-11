@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Huginn.Couch;
+using Huginn.Data;
 
 namespace Huginn.Managers {
-	public abstract class BaseManager<T> where T: Huginn.Models.BaseModel {
+	public class Manager<T> where T: BaseData {
 		protected CouchClient client;
 		protected string view;
 
-		public BaseManager(string view) {
+		public Manager(string view) {
 			client = new CouchClient("muninn");
 
 			this.view = view;

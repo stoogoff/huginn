@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Huginn.Models {
-	public class Chapter: BaseModel {
+namespace Huginn.Data {
+	public class Chapter: BaseData {
 		[JsonProperty("title")]
 		public string Title { get; set; }
 

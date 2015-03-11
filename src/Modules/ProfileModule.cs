@@ -2,7 +2,7 @@
 using Huginn.Exceptions;
 
 namespace Huginn.Modules {
-	public class ProfileModule: ModelModule<Huginn.Models.Profile> {
+	public class ProfileModule: ModelModule<Huginn.Data.Profile> {
 		public ProfileModule(): base("/profiles") {
 			manager = new ProfileManager();
 

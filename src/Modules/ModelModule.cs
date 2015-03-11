@@ -6,8 +6,8 @@ using Huginn.Managers;
 using Huginn.Exceptions;
 
 namespace Huginn.Modules {
-	public abstract class ModelModule<T>: NancyModule where T: Huginn.Models.BaseModel {
-		protected BaseManager<T> manager; // This **must** be set by inheriting classes
+	public abstract class ModelModule<T>: NancyModule where T: Huginn.Data.BaseData {
+		protected Manager<T> manager; // This **must** be set by inheriting classes
 
 		protected ModelModule(string basePath): base(basePath) {
 			Before += context => {

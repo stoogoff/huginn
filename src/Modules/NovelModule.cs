@@ -4,7 +4,7 @@ using Huginn.Managers;
 using Huginn.Exceptions;
 
 namespace Huginn.Modules {
-	public class NovelModule: ModelModule <Huginn.Models.Novel> {
+	public class NovelModule: ModelModule <Huginn.Data.Novel> {
 		public NovelModule(): base("/novels") {
 			manager = new NovelManager();
 

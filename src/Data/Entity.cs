@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 
-namespace Huginn.Models {
-	public class Entity: BaseModel {
+namespace Huginn.Data {
+	public class Entity: BaseData {
 		[JsonProperty("hint")]
 		public string Hint { get; set; }
 

@@ -32,27 +32,27 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="Models\Novel.cs" />
-    <Compile Include="Models\Chapter.cs" />
-    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Modules\ModelModule.cs" />
     <Compile Include="Modules\NovelModule.cs" />
     <Compile Include="Modules\ChapterModule.cs" />
-    <Compile Include="Models\Entity.cs" />
     <Compile Include="Modules\EntityModule.cs" />
     <Compile Include="Modules\ProfileModule.cs" />
-    <Compile Include="Models\Profile.cs" />
     <Compile Include="Couch\CouchClient.cs" />
     <Compile Include="Couch\CouchResponse.cs" />
     <Compile Include="Couch\Uuid.cs" />
     <Compile Include="Couch\ViewResult.cs" />
     <Compile Include="Couch\ViewQuery.cs" />
-    <Compile Include="Managers\BaseManager.cs" />
     <Compile Include="Managers\NovelManager.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="Exceptions\ObjectNotFoundException.cs" />
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Managers\ProfileManager.cs" />
+    <Compile Include="Managers\Manager.cs" />
+    <Compile Include="Data\Novel.cs" />
+    <Compile Include="Data\Chapter.cs" />
+    <Compile Include="Data\Entity.cs" />
+    <Compile Include="Data\Profile.cs" />
+    <Compile Include="Data\BaseData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
@@ -74,11 +74,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Modules\" />
     <Folder Include="Couch\" />
     <Folder Include="Managers\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

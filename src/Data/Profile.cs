@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Huginn.Models {
-	public class Profile: BaseModel {
+namespace Huginn.Data {
+	public class Profile: BaseData {
 		[JsonProperty("name")]
 		public string Name { get; set; }
 

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Huginn.Models;
+using Huginn.Data;
 using Huginn.Couch;
 
 namespace Huginn.Managers {
-	public class ProfileManager: BaseManager<Profile> {
+	public class ProfileManager: Manager<Profile> {
 		public ProfileManager(): base("contributors") {
 
 		}

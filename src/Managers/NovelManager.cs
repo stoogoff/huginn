@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Huginn.Models;
+using Huginn.Data;
 using Huginn.Couch;
 
 namespace Huginn.Managers {
-	public class NovelManager: BaseManager<Novel> {
+	public class NovelManager: Manager<Novel> {
 		public NovelManager(): base("novels") {
 		}
 

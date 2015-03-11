@@ -1,8 +1,11 @@
 ﻿using System;
+using Huginn.Data;
+using Huginn.Managers;
 
 namespace Huginn.Modules {
-	public class EntityModule: ModelModule <Huginn.Models.Entity> {
+	public class EntityModule: ModelModule<Entity> {
 		public EntityModule(): base("/entities") {
+			manager = new Manager<Entity>("entities");
 		}
 	}
 }
