@@ -11,8 +11,6 @@ namespace Huginn.Managers {
 			client = new CouchClient("muninn");
 
 			this.view = view;
-
-			AuthorId = 2; // for testing
 		}
 
 		public int AuthorId { get; set; }

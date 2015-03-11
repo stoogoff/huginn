@@ -7,15 +7,25 @@ using Huginn.Managers;
 
 namespace Huginn.Modules {
 	public abstract class ModelModule<T>: NancyModule where T: Huginn.Models.BaseModel {
-		//private int userId = 2;
-		protected BaseManager<T> manager;
+		protected BaseManager<T> manager; // This **must** be set by inheriting classes
 
 		public ModelModule(string basePath): base(basePath) {
-			/*Before += context => {
-				// TODO retrieve user id from request header
+			Before += context => {
+				var authors = context.Request.Headers["X-AUTHOR"];
+
+				foreach(var author in authors) {
+					int authorId;
+
+					if(int.TryParse(author, out authorId)) {
+						manager.AuthorId = authorId;
+						break;
+					}
+				}
+
+				// TODO should throw an authentication error here
 
 				return null;
-			};*/
+			};
 
 			// index of T
 			Get["/"] = parameters => manager.All();
