@@ -49,6 +49,8 @@
     <Compile Include="Couch\ViewQuery.cs" />
     <Compile Include="Managers\BaseManager.cs" />
     <Compile Include="Managers\NovelManager.cs" />
+    <Compile Include="Exceptions\ServiceException.cs" />
+    <Compile Include="Exceptions\ObjectNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
@@ -74,6 +76,7 @@
     <Folder Include="Modules\" />
     <Folder Include="Couch\" />
     <Folder Include="Managers\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

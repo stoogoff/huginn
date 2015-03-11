@@ -11,6 +11,7 @@ namespace Huginn.Modules {
 
 		public ModelModule(string basePath): base(basePath) {
 			Before += context => {
+				// This may be better as an Authorization header
 				var authors = context.Request.Headers["X-AUTHOR"];
 
 				foreach(var author in authors) {

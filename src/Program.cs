@@ -8,6 +8,7 @@ namespace monotest {
 	public class Program {
 		public static void Main(string[] args) {
 			StaticConfiguration.DisableErrorTraces = false;
+			StaticConfiguration.EnableRequestTracing = true;
 
 			var uri = "http://localhost:8888";
 			Console.WriteLine("Listening: {0}", uri);

@@ -2,6 +2,7 @@
 using System.Net;
 using RestSharp;
 using Newtonsoft.Json;
+using Huginn.Exceptions;
 
 namespace Huginn.Couch {
 	public class CouchClient {
@@ -78,9 +79,6 @@ namespace Huginn.Couch {
 		public ViewResult<T> GetView<T>(string designDoc, string view, ViewQuery query) {
 			var request = new RestRequest(string.Format("_design/{0}/_view/{1}?{2}", designDoc, view, query), Method.GET);
 
-			Console.WriteLine(request.Resource);
-			Console.WriteLine(query);
-
 			return Execute<ViewResult<T>>(request);
 		}
 		#endregion
@@ -90,11 +88,11 @@ namespace Huginn.Couch {
 			var response = client.Execute(request);
 
 			if(response.ErrorException != null) {
-				throw response.ErrorException;
+				throw new ServiceException(response.StatusCode, "Databse error", response.ErrorException);
 			}
 
 			if(response.StatusCode == HttpStatusCode.NotFound) {
-				throw new ApplicationException(string.Format("'{0}' not found.", request.Resource));
+				throw new ObjectNotFoundException(new Uri(request.Resource));
 			}
 
 			return JsonConvert.DeserializeObject<T>(response.Content);
