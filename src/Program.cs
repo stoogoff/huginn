@@ -4,7 +4,7 @@ using System.Linq;
 using Nancy;
 using Nancy.Hosting.Self;
 
-namespace monotest {
+namespace Huginn {
 	public class Program {
 		public static void Main(string[] args) {
 			StaticConfiguration.DisableErrorTraces = false;
@@ -27,4 +27,3 @@ namespace monotest {
 		}
 	}
 }
-

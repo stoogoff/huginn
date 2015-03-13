@@ -29,60 +29,33 @@ namespace Huginn.Modules {
 			};
 
 			// index of T
-			Get["/"] = parameters => {
-				try {
-					return GetResponse(manager.All());
-				}
-				catch(ServiceException se) {
-					return GetResponse(se);
-				}
-			};
+			Get["/"] = parameters => GetResponse(manager.All());
 
 			Post["/"] = parameters => {
-				try {
-					var model = this.Bind<T>();
+				var model = this.Bind<T>();
 
-					return GetResponse(HttpStatusCode.Created, manager.Create(model));
-				}
-				catch(ServiceException se) {
-					return GetResponse(se);
-				}
+				return GetResponse(HttpStatusCode.Created, manager.Create(model));
 			};
 
 			// single T based on ID
 			Get["/{id}"] = parameters => {
-				try {
-					var id = parameters.id.ToString();
+				var id = parameters.id.ToString();
 
-					return GetResponse(manager.Get(id));
-				}
-				catch(ServiceException se) {
-					return GetResponse(se);
-				}
+				return GetResponse(manager.Get(id));
 			};
 
 			Put["/{id}"] = parameters => {
-				try {
-					var id = parameters.id.ToString();
-					var model = this.Bind<T>();
+				var id = parameters.id.ToString();
+				var model = this.Bind<T>();
 
-					return GetResponse(HttpStatusCode.Created, manager.Save(id, model));
-				}
-				catch(ServiceException se) {
-					return GetResponse(se);
-				}
+				return GetResponse(HttpStatusCode.Created, manager.Save(id, model));
 			};
 
 			Delete["/{id}/{revision}"] = parameters => {
-				try {
-					var id = parameters.id.ToString();
-					var revision = parameters.revision.ToString();
+				var id = parameters.id.ToString();
+				var revision = parameters.revision.ToString();
 
-					return GetResponse(HttpStatusCode.Created, manager.Delete(id, revision));
-				}
-				catch(ServiceException se) {
-					return GetResponse(se);
-				}
+				return GetResponse(HttpStatusCode.Created, manager.Delete(id, revision));
 			};
 
 			// TODO versions
@@ -96,14 +69,6 @@ namespace Huginn.Modules {
 			var response = new JsonResponse(model, new DefaultJsonSerializer());
 
 			response.StatusCode = status;
-
-			return response;
-		}
-
-		protected Response GetResponse(ServiceException exception) {
-			var response = new JsonResponse<ServiceException>(exception, new DefaultJsonSerializer());
-
-			response.StatusCode = exception.StatusCode;
 
 			return response;
 		}

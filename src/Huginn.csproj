@@ -52,11 +52,14 @@
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\Profile.cs" />
     <Compile Include="Data\BaseData.cs" />
-    <Compile Include="JsonModels\Models.cs" />
     <Compile Include="Managers\DataManager.cs" />
     <Compile Include="Managers\ChapterManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Data\ChapterSummary.cs" />
+    <Compile Include="Json\Models.cs" />
+    <Compile Include="Json\SerialiserSettings.cs" />
+    <Compile Include="Json\DateTimeConverter.cs" />
+    <Compile Include="HuginnBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
@@ -83,7 +86,7 @@
     <Folder Include="Managers\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Data\" />
-    <Folder Include="JsonModels\" />
+    <Folder Include="Json\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

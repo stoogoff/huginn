@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Huginn.Data;
 
-namespace Huginn.JsonModels {
+namespace Huginn.Json {
 	public interface IModel {
 
 	}

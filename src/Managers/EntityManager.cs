@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Huginn.Couch;
 using Huginn.Data;
-using Huginn.JsonModels;
+using Huginn.Json;
 
 namespace Huginn.Managers {
 	public class EntityManager: DataManager<Entity> {

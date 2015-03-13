@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Huginn.Data;
 using Huginn.Couch;
-using Huginn.JsonModels;
+using Huginn.Json;
 
 namespace Huginn.Managers {
 	public class ProfileManager: DataManager<Profile> {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Huginn.Couch;
 using Huginn.Data;
-using Huginn.JsonModels;
+using Huginn.Json;
 
 namespace Huginn.Managers {
 	public abstract class DataManager<S> {
@@ -60,7 +60,7 @@ namespace Huginn.Managers {
 
 		// save a new object
 		protected T CreateObject<T>(T model) where T: BaseData  {
-			model.Created = DateTime.Now;
+			model.Created = DateTime.UtcNow;
 
 			var response = client.Save(model);
 
@@ -69,7 +69,7 @@ namespace Huginn.Managers {
 
 		// save an existing object
 		protected T SaveObject<T>(string id, T model) where T: BaseData {
-			model.Modified = DateTime.Now;
+			model.Modified = DateTime.UtcNow;
 
 			var response = client.Save(id, model);
 

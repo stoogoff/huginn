@@ -3,6 +3,7 @@ using System.Net;
 using RestSharp;
 using Newtonsoft.Json;
 using Huginn.Exceptions;
+using Huginn.Json;
 
 namespace Huginn.Couch {
 	public class CouchClient {
@@ -46,7 +47,7 @@ namespace Huginn.Couch {
 				id = NextId();
 			}
 
-			var json = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+			var json = JsonConvert.SerializeObject(model, Formatting.Indented, new SerialiserSettings());
 			var request = new RestRequest(id, Method.PUT);
 
 			request.AddParameter("application/json", json, ParameterType.RequestBody);

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Linq;
 using Huginn.Data;
-using Huginn.JsonModels;
+using Huginn.Json;
 
 namespace Huginn.Managers {
 	public class ChapterManager: DataManager<Chapter> {
@@ -32,6 +32,12 @@ namespace Huginn.Managers {
 		}
 
 		public override IModel Create(Chapter data) {
+			var novelManager = new NovelManager();
+			var chapters = novelManager.GetChaptersForNovel(data.Novel);
+			var last = chapters.Reverse().Take(1).Single();
+
+			data.Sort = last.Sort + 1;
+
 			var model = new ChapterJson();
 
 			model.Chapter = CreateObject(data);
