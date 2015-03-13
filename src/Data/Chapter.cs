@@ -17,9 +17,6 @@ namespace Huginn.Data {
 		[JsonProperty("content")]
 		public string Content { get; set; }
 
-		[JsonIgnore]
-		public string RawContent { get; set; }
-
 		[JsonProperty("novel")]
 		public string Novel { get; set; }
 
@@ -51,7 +48,7 @@ namespace Huginn.Data {
 
 		public Chapter ConvertEntities(IList<Entity> entities) {
 			// TODO basic mustache syntax
-			RawContent = Content;
+
 
 			return this;
 		}

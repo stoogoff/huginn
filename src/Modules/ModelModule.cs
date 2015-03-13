@@ -1,9 +1,8 @@
 ﻿using System;
 using Nancy;
 using Nancy.ModelBinding;
-using Nancy.Responses;
 using Huginn.Managers;
-using Huginn.Exceptions;
+using Huginn.Json;
 
 namespace Huginn.Modules {
 	public abstract class ModelModule<T>: NancyModule where T: Huginn.Data.BaseData {
@@ -29,48 +28,36 @@ namespace Huginn.Modules {
 			};
 
 			// index of T
-			Get["/"] = parameters => GetResponse(manager.All());
+			Get["/"] = parameters => ResponseHandler.GetResponse(manager.All());
 
 			Post["/"] = parameters => {
 				var model = this.Bind<T>();
 
-				return GetResponse(HttpStatusCode.Created, manager.Create(model));
+				return ResponseHandler.GetResponse(HttpStatusCode.Created, manager.Create(model));
 			};
 
 			// single T based on ID
 			Get["/{id}"] = parameters => {
 				var id = parameters.id.ToString();
 
-				return GetResponse(manager.Get(id));
+				return ResponseHandler.GetResponse(manager.Get(id));
 			};
 
 			Put["/{id}"] = parameters => {
 				var id = parameters.id.ToString();
 				var model = this.Bind<T>();
 
-				return GetResponse(HttpStatusCode.Created, manager.Save(id, model));
+				return ResponseHandler.GetResponse(HttpStatusCode.Created, manager.Save(id, model));
 			};
 
 			Delete["/{id}/{revision}"] = parameters => {
 				var id = parameters.id.ToString();
 				var revision = parameters.revision.ToString();
 
-				return GetResponse(HttpStatusCode.Created, manager.Delete(id, revision));
+				return ResponseHandler.GetResponse(HttpStatusCode.Created, manager.Delete(id, revision));
 			};
 
 			// TODO versions
-		}
-
-		protected Response GetResponse(object model) {
-			return GetResponse(HttpStatusCode.OK, model);
-		}
-
-		protected Response GetResponse(HttpStatusCode status, object model) {
-			var response = new JsonResponse(model, new DefaultJsonSerializer());
-
-			response.StatusCode = status;
-
-			return response;
 		}
 	}
 }

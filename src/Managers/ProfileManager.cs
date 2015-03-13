@@ -14,6 +14,8 @@ namespace Huginn.Managers {
 
 			model.Profiles = AllObjects<Profile>();
 
+			// TODO novel count foreach profile
+
 			return model;
 		}
 
@@ -57,7 +59,7 @@ namespace Huginn.Managers {
 			};
 			var response = Client.GetView<Novel>("novels", "by_contributor", query);
 
-			return ConvertView<Novel>(response);
+			return response.ToList();
 		}
 	}
 }

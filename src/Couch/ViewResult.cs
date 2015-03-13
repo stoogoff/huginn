@@ -11,6 +11,16 @@ namespace Huginn.Couch {
 
 		[JsonProperty("rows")]
 		public IList<ResultRow<T>> Rows { get; set; }
+
+		public IList<T> ToList() {
+			var list = new List<T>();
+
+			foreach(var item in Rows) {
+				list.Add(item.Value);
+			}
+
+			return list;
+		}
 	}
 
 	public class ResultRow<T> {

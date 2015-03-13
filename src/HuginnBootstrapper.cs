@@ -12,6 +12,8 @@ namespace Huginn {
 			base.ApplicationStartup(container, pipelines);
 
 			pipelines.OnError += (ctx, ex) => {
+				Console.WriteLine(ex.ToString());
+
 				if(ex is ServiceException) {
 					return GetResponse(ex as ServiceException);
 				}

@@ -41,7 +41,7 @@ namespace Huginn.Managers {
 			};
 			var result = Client.GetView<ChapterSummary>(view, "by_author_usage", query);
 
-			model.Chapters = ConvertView<ChapterSummary>(result);
+			model.Chapters = result.ToList();
 
 			return model;
 		}

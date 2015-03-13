@@ -51,7 +51,7 @@ namespace Huginn.Managers {
 
 			var response = client.GetView<T>(view, "by_author", query);
 
-			return ConvertView<T>(response);
+			return response.ToList();
 		}
 
 		protected T GetObject<T>(string id) {
@@ -74,16 +74,6 @@ namespace Huginn.Managers {
 			var response = client.Save(id, model);
 
 			return GetObject<T>(response.Id);
-		}
-
-		protected IList<U> ConvertView<U>(ViewResult<U> response) {
-			var list = new List<U>();
-
-			foreach(var item in response.Rows) {
-				list.Add(item.Value);
-			}
-
-			return list;
 		}
 	}
 }

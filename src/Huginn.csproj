@@ -60,6 +60,10 @@
     <Compile Include="Json\SerialiserSettings.cs" />
     <Compile Include="Json\DateTimeConverter.cs" />
     <Compile Include="HuginnBootstrapper.cs" />
+    <Compile Include="Data\NovelSort.cs" />
+    <Compile Include="Modules\LatestModule.cs" />
+    <Compile Include="Data\Proxy.cs" />
+    <Compile Include="Json\ResponseHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">

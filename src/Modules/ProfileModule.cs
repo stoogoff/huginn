@@ -1,4 +1,5 @@
 ﻿using Huginn.Managers;
+using Huginn.Json;
 
 namespace Huginn.Modules {
 	public class ProfileModule: ModelModule<Huginn.Data.Profile> {
@@ -8,7 +9,7 @@ namespace Huginn.Modules {
 			Get["/{id}/novels"] = parameters => {
 				var id = parameters.id.ToString();
 
-				return GetResponse((manager as ProfileManager).Novels(id));
+				return ResponseHandler.GetResponse((manager as ProfileManager).Novels(id));
 			};
 		}
 	}

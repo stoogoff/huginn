@@ -68,9 +68,26 @@ namespace Huginn.Managers {
 			};
 			var response = Client.GetView<Novel>(view, "archived_by_author", query);
 
-			model.Novels = ConvertView<Novel>(response);
+			model.Novels = response.ToList();
 
 			return model;
+		}
+
+		public void Sort(NovelSort sort) {
+			var raw = GetChaptersForNovel(sort.Id);
+			var chapters = new Dictionary<string, Chapter>();
+
+			foreach(var chapter in raw) {
+				chapters.Add(chapter.Id, chapter);
+			}
+
+			int index = 0;
+
+			foreach(var id in sort.Chapters) {
+				chapters[id].Sort = ++index;
+
+				SaveObject<Chapter>(id, chapters[id]);
+			}
 		}
 
 		public EntitiesJson Entities(string id) {
@@ -87,7 +104,7 @@ namespace Huginn.Managers {
 				EndKey = "[\"" + id + "\",{}]",
 			};
 			var response = Client.GetView<Chapter>("articles", "by_novel", query);
-			var chapters = ConvertView<Chapter>(response);
+			var chapters = response.ToList();
 			/*var entities = Entities(id);
 
 			foreach(var chapter in chapters) {
@@ -103,7 +120,7 @@ namespace Huginn.Managers {
 				EndKey = "[" + AuthorId + ",{}]",
 			};
 			var response = Client.GetView<Entity>("entities", "by_author", query);
-			var entities = ConvertView<Entity>(response);
+			var entities = response.ToList();
 			var list = new List<Entity>();
 
 			foreach(var entity in entities) {
@@ -120,7 +137,7 @@ namespace Huginn.Managers {
 				EndKey = "[" + AuthorId + ",{}]",
 			};
 			var response = Client.GetView<Profile>("contributors", "by_author", query);
-			var profiles = ConvertView<Profile>(response);
+			var profiles = response.ToList();
 			var list = new List<Profile>();
 
 			foreach(var profile in profiles) {
