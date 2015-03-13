@@ -18,9 +18,6 @@ namespace Huginn.Data {
 		[JsonProperty("author")]
 		public int Author { get; set; }
 
-		[JsonProperty("doc_type")]
-		public string DocType { get; set; }
-
 		[JsonProperty("trash")]
 		public bool Trash { get; set; }
 	}

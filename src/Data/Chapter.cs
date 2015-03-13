@@ -4,6 +4,13 @@ using Newtonsoft.Json;
 
 namespace Huginn.Data {
 	public class Chapter: BaseData {
+		[JsonProperty("doc_type")]
+		public string DocType {
+			get {
+				return "Article";
+			}
+		}
+
 		[JsonProperty("title")]
 		public string Title { get; set; }
 

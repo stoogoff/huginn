@@ -19,6 +19,7 @@ namespace Huginn.JsonModels {
 	public class ChapterJson: IModel {
 		public Chapter Chapter { get; set; }
 		public Novel Novel { get; set; }
+		public IList<Entity> Entities { get; set; }
 	}
 	public class ChaptersJson: IModel {
 		public IList<Chapter> Chapters { get; set; }

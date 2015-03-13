@@ -26,10 +26,10 @@ namespace Huginn.Managers {
 			return model;
 		}
 
-		public override IModel Save(Profile data) {
+		public override IModel Create(Profile data) {
 			var model = new ProfileJson();
 
-			model.Profile = SaveObject<Profile>(data);
+			model.Profile = CreateObject<Profile>(data);
 
 			return model;
 		}
@@ -37,7 +37,7 @@ namespace Huginn.Managers {
 		public override IModel Save(string id, Profile data) {
 			var model = new ProfileJson();
 
-			model.Profile = SaveObject<Profile>(data);
+			model.Profile = SaveObject(id, data);
 
 			return model;
 		}

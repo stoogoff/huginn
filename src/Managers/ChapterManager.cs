@@ -21,13 +21,20 @@ namespace Huginn.Managers {
 			model.Chapter = GetObject<Chapter>(id);
 			model.Novel = GetObject<Novel>(model.Chapter.Novel);
 
+			// get the entities which can be applied to this chapter
+			var novelManager = new NovelManager();
+
+			novelManager.AuthorId = AuthorId;
+
+			model.Entities = novelManager.GetEntitiesForNovel(model.Novel.Id);
+
 			return model;
 		}
 
-		public override IModel Save(Chapter data) {
+		public override IModel Create(Chapter data) {
 			var model = new ChapterJson();
 
-			model.Chapter = SaveObject(data);
+			model.Chapter = CreateObject(data);
 
 			return model;
 		}
@@ -35,7 +42,7 @@ namespace Huginn.Managers {
 		public override IModel Save(string id, Chapter data) {
 			var model = new ChapterJson();
 
-			model.Chapter = SaveObject(data);
+			model.Chapter = SaveObject(id, data);
 
 			return model;
 		}

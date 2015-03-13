@@ -42,7 +42,7 @@ namespace Huginn.Modules {
 				try {
 					var model = this.Bind<T>();
 
-					return GetResponse(HttpStatusCode.Created, manager.Save(model));
+					return GetResponse(HttpStatusCode.Created, manager.Create(model));
 				}
 				catch(ServiceException se) {
 					return GetResponse(se);

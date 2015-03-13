@@ -21,17 +21,14 @@ namespace Huginn.Managers {
 			var model = new NovelJson();
 
 			model.Novel = GetObject<Novel>(id);
-			model.Chapters = GetChaptersForNovel(id);
-			model.Entities = GetEntitiesForNovel(id);
-			model.Profiles = GetProfilesForNovel(model.Novel.Contributors);
 
 			return model;
 		}
 
-		public override IModel Save(Novel data) {
+		public override IModel Create(Novel data) {
 			var model = new NovelJson();
 
-			model.Novel = SaveObject(data);
+			model.Novel = CreateObject(data);
 
 			return model;
 		}
@@ -39,7 +36,7 @@ namespace Huginn.Managers {
 		public override IModel Save(string id, Novel data) {
 			var model = new NovelJson();
 
-			model.Novel = SaveObject(data);
+			model.Novel = SaveObject(id, data);
 
 			return model;
 		}
@@ -48,6 +45,17 @@ namespace Huginn.Managers {
 			var model = new ChaptersJson();
 
 			model.Chapters = GetChaptersForNovel(id);
+
+			return model;
+		}
+
+		public NovelJson Data(string id) {
+			var model = new NovelJson();
+
+			model.Novel = GetObject<Novel>(id);
+			model.Chapters = GetChaptersForNovel(id);
+			model.Entities = GetEntitiesForNovel(id);
+			model.Profiles = GetProfilesForNovel(model.Novel.Contributors);
 
 			return model;
 		}
@@ -73,23 +81,23 @@ namespace Huginn.Managers {
 			return model;
 		}
 
-		protected IList<Chapter> GetChaptersForNovel(string id) {
+		public IList<Chapter> GetChaptersForNovel(string id) {
 			var query = new ViewQuery {
 				StartKey = "[\"" + id + "\"]",
 				EndKey = "[\"" + id + "\",{}]",
 			};
 			var response = Client.GetView<Chapter>("articles", "by_novel", query);
 			var chapters = ConvertView<Chapter>(response);
-			var entities = Entities(id);
+			/*var entities = Entities(id);
 
 			foreach(var chapter in chapters) {
 				chapter.Summarise().ConvertEntities(entities.Entities);
-			}
+			}*/
 
 			return chapters;
 		}
 
-		protected IList<Entity> GetEntitiesForNovel(string id) {
+		public IList<Entity> GetEntitiesForNovel(string id) {
 			var query = new ViewQuery {
 				StartKey = "[" + AuthorId + "]",
 				EndKey = "[" + AuthorId + ",{}]",
@@ -106,7 +114,7 @@ namespace Huginn.Managers {
 			return list;
 		}
 
-		protected IList<Profile> GetProfilesForNovel(IList<string> ids) {
+		public IList<Profile> GetProfilesForNovel(IList<string> ids) {
 			var query = new ViewQuery {
 				StartKey = "[" + AuthorId + "]",
 				EndKey = "[" + AuthorId + ",{}]",

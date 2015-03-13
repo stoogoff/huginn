@@ -46,10 +46,10 @@ namespace Huginn.Managers {
 			return model;
 		}
 
-		public override IModel Save(Entity data) {
+		public override IModel Create(Entity data) {
 			var model = new EntityJson();
 
-			model.Entity = SaveObject(data);
+			model.Entity = CreateObject(data);
 
 			return model;
 		}
@@ -57,7 +57,7 @@ namespace Huginn.Managers {
 		public override IModel Save(string id, Entity data) {
 			var model = new EntityJson();
 
-			model.Entity = SaveObject(data);
+			model.Entity = SaveObject(id, data);
 
 			return model;
 		}

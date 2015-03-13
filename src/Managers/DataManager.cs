@@ -28,7 +28,7 @@ namespace Huginn.Managers {
 
 		public abstract IModel Get(string id);
 
-		public abstract IModel Save(S model);
+		public abstract IModel Create(S model);
 
 		public abstract IModel Save(string id, S model);
 		#endregion
@@ -58,13 +58,19 @@ namespace Huginn.Managers {
 			return client.GetDocument<T>(id);
 		}
 
-		protected T SaveObject<T>(T model) {
+		// save a new object
+		protected T CreateObject<T>(T model) where T: BaseData  {
+			model.Created = DateTime.Now;
+
 			var response = client.Save(model);
 
 			return GetObject<T>(response.Id);
 		}
 
-		protected T SaveObject<T>(string id, T model) {
+		// save an existing object
+		protected T SaveObject<T>(string id, T model) where T: BaseData {
+			model.Modified = DateTime.Now;
+
 			var response = client.Save(id, model);
 
 			return GetObject<T>(response.Id);

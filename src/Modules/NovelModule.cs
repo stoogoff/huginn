@@ -17,6 +17,17 @@ namespace Huginn.Modules {
 				}
 			};
 
+			Get["/{id}/data"] = parameters => {
+				try {
+					var id = parameters.id.ToString();
+
+					return GetResponse((manager as NovelManager).Data(id));
+				}
+				catch(ServiceException se) {
+					return GetResponse(se);
+				}
+			};
+
 			Get["/{id}/chapters"] = parameters => {
 				try {
 					var id = parameters.id.ToString();

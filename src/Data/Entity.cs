@@ -5,6 +5,13 @@ using Newtonsoft.Json;
 
 namespace Huginn.Data {
 	public class Entity: BaseData {
+		[JsonProperty("doc_type")]
+		public string DocType {
+			get {
+				return "Entity";
+			}
+		}
+
 		[JsonProperty("hint")]
 		public string Hint { get; set; }
 
