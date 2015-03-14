@@ -42,5 +42,23 @@ namespace Huginn.Json {
 		public IList<Profile> Profiles { get; set; }
 		public IList<Novel> Novels { get; set; }
 	}
+	public class StatsCountJson: IModel {
+		public IList<KeyValue<string, int>> Values { get; set; }
+
+		public void Add(string key, int value) {
+			if(Values == null) {
+				Values = new List<KeyValue<string, int>>();
+			}
+
+			Values.Add(new KeyValue<string, int> {
+				Key = key,
+				Value  = value
+			});
+		}
+	}
+	public class KeyValue<K, V> {
+		public K Key { get; set; }
+		public V Value { get; set; }
+	}
 }
 

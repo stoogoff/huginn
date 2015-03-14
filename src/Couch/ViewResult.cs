@@ -23,8 +23,15 @@ namespace Huginn.Couch {
 		}
 	}
 
+	public class ViewResult: ViewResult<object> {
+
+	}
+
 	public class ResultRow<T> {
 		public string Id { get; set; }
+
+		[JsonProperty("key")]
+		public object[] Key { get; set; }
 
 		[JsonProperty("value")]
 		public T Value { get; set; }

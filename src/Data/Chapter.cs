@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Huginn.Data {
-	public class Chapter: BaseData {
+	public class Chapter: CouchData {
 		[JsonProperty("doc_type")]
 		public string DocType {
 			get {

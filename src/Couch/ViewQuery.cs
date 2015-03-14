@@ -40,6 +40,8 @@ namespace Huginn.Couch {
 			foreach(var property in properties) {
 				var value = property.GetValue(this);
 
+				// TODO lowercase booleans?
+
 				if(value == null)
 					continue;
 
@@ -58,6 +60,21 @@ namespace Huginn.Couch {
 
 			return string.Join("&", buffer);
 		}
+
+		#region Static methods
+		public static string GetStartKey(int id) {
+			return string.Format("[{0}]", id);
+		}
+		public static string GetStartKey(string id) {
+			return string.Format("[\"{0}\"]", id);
+		}
+		public static string GetEndKey(int id) {
+			return string.Format("[{0},{{}}]", id);
+		}
+		public static string GetEndKey(string id) {
+			return string.Format("[\"{0}\",{{}}]", id);
+		}
+		#endregion
 	}
 }
 

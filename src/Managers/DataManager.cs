@@ -45,10 +45,9 @@ namespace Huginn.Managers {
 
 		protected IList<T> AllObjects<T>(string view) {
 			var query = new ViewQuery {
-				StartKey = "[" + AuthorId + "]",
-				EndKey = "[" + AuthorId + ",{}]"
+				StartKey = ViewQuery.GetStartKey(AuthorId),
+				EndKey = ViewQuery.GetEndKey(AuthorId)
 			};
-
 			var response = client.GetView<T>(view, "by_author", query);
 
 			return response.ToList();
@@ -59,7 +58,7 @@ namespace Huginn.Managers {
 		}
 
 		// save a new object
-		protected T CreateObject<T>(T model) where T: BaseData  {
+		protected T CreateObject<T>(T model) where T: CouchData  {
 			model.Created = DateTime.UtcNow;
 
 			var response = client.Save(model);
@@ -68,7 +67,7 @@ namespace Huginn.Managers {
 		}
 
 		// save an existing object
-		protected T SaveObject<T>(string id, T model) where T: BaseData {
+		protected T SaveObject<T>(string id, T model) where T: CouchData {
 			model.Modified = DateTime.UtcNow;
 
 			var response = client.Save(id, model);

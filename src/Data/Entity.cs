@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 
 namespace Huginn.Data {
-	public class Entity: BaseData {
+	public class Entity: CouchData {
 		[JsonProperty("doc_type")]
 		public string DocType {
 			get {

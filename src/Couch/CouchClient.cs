@@ -82,11 +82,27 @@ namespace Huginn.Couch {
 
 			return Execute<ViewResult<T>>(request);
 		}
+
+		public ViewResult GetView(string designDoc, string view) {
+			var request = new RestRequest(string.Format("_design/{0}/_view/{1}", designDoc, view), Method.GET);
+
+			return Execute<ViewResult>(request);
+		}
+
+		public ViewResult GetView(string designDoc, string view, ViewQuery query) {
+			var request = new RestRequest(string.Format("_design/{0}/_view/{1}?{2}", designDoc, view, query), Method.GET);
+
+			return Execute<ViewResult>(request);
+		}
 		#endregion
 
 		protected T Execute<T>(string url, RestRequest request) {
 			var client = new RestClient(url);
 			var response = client.Execute(request);
+
+			#if DEBUG
+			Console.WriteLine("{0} - {1} {2}{3} ({4})", DateTime.UtcNow, request.Method, url, request.Resource, (int) response.StatusCode);
+			#endif
 
 			if(response.ErrorException != null) {
 				throw new ServiceException(response.StatusCode, "Database error", response.ErrorException);

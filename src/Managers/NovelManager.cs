@@ -76,8 +76,8 @@ namespace Huginn.Managers {
 		public NovelsJson Archive() {
 			var model = new NovelsJson();
 			var query = new ViewQuery {
-				StartKey = "[" + AuthorId + "]",
-				EndKey = "[" + AuthorId + ",{}]"
+				StartKey = ViewQuery.GetStartKey(AuthorId),
+				EndKey = ViewQuery.GetEndKey(AuthorId)
 			};
 			var response = Client.GetView<Novel>(view, "archived_by_author", query);
 
@@ -113,8 +113,8 @@ namespace Huginn.Managers {
 
 		public IList<Chapter> GetChaptersForNovel(string id) {
 			var query = new ViewQuery {
-				StartKey = "[\"" + id + "\"]",
-				EndKey = "[\"" + id + "\",{}]",
+				StartKey = ViewQuery.GetStartKey(id),
+				EndKey = ViewQuery.GetEndKey(id)
 			};
 			var response = Client.GetView<Chapter>("articles", "by_novel", query);
 			var chapters = response.ToList();
@@ -129,8 +129,8 @@ namespace Huginn.Managers {
 
 		public IList<Entity> GetEntitiesForNovel(string id) {
 			var query = new ViewQuery {
-				StartKey = "[" + AuthorId + "]",
-				EndKey = "[" + AuthorId + ",{}]",
+				StartKey = ViewQuery.GetStartKey(AuthorId),
+				EndKey = ViewQuery.GetEndKey(AuthorId)
 			};
 			var response = Client.GetView<Entity>("entities", "by_author", query);
 			var entities = response.ToList();
@@ -146,8 +146,8 @@ namespace Huginn.Managers {
 
 		public IList<Profile> GetProfilesForNovel(IList<string> ids) {
 			var query = new ViewQuery {
-				StartKey = "[" + AuthorId + "]",
-				EndKey = "[" + AuthorId + ",{}]",
+				StartKey = ViewQuery.GetStartKey(AuthorId),
+				EndKey = ViewQuery.GetEndKey(AuthorId)
 			};
 			var response = Client.GetView<Profile>("contributors", "by_author", query);
 			var profiles = response.ToList();

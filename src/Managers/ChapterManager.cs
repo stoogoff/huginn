@@ -34,9 +34,16 @@ namespace Huginn.Managers {
 		public override IModel Create(Chapter data) {
 			var novelManager = new NovelManager();
 			var chapters = novelManager.GetChaptersForNovel(data.Novel);
-			var last = chapters.Reverse().Take(1).Single();
 
-			data.Sort = last.Sort + 1;
+			if(chapters.Count == 0) {
+				data.Sort = 1;
+			}
+			else {
+				// can't use chapters.Length here as it wouldn't take into account deleted chapters
+				var last = chapters.Reverse().Take(1).Single();
+
+				data.Sort = last.Sort + 1;
+			}
 
 			var model = new ChapterJson();
 

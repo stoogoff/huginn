@@ -54,8 +54,8 @@ namespace Huginn.Managers {
 
 		protected IList<Novel> GetNovels(string id) {
 			var query = new ViewQuery {
-				StartKey = "[\"" + id + "\"]",
-				EndKey = "[\"" + id + "\",{}]",
+				StartKey = ViewQuery.GetStartKey(id),
+				EndKey = ViewQuery.GetEndKey(id)
 			};
 			var response = Client.GetView<Novel>("novels", "by_contributor", query);
 

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 
 namespace Huginn.Data {
-	public class Profile: BaseData {
+	public class Profile: CouchData {
 		[JsonProperty("doc_type")]
 		public string DocType {
 			get {

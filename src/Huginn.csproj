@@ -51,7 +51,6 @@
     <Compile Include="Data\Chapter.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\Profile.cs" />
-    <Compile Include="Data\BaseData.cs" />
     <Compile Include="Managers\DataManager.cs" />
     <Compile Include="Managers\ChapterManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
@@ -66,6 +65,9 @@
     <Compile Include="HuginnUser.cs" />
     <Compile Include="Modules\SecurityModule.cs" />
     <Compile Include="Modules\AncillaryModule.cs" />
+    <Compile Include="Data\Stats.cs" />
+    <Compile Include="Data\CouchData.cs" />
+    <Compile Include="Modules\StatsModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">

@@ -5,7 +5,7 @@ using Huginn.Managers;
 using Huginn.Json;
 
 namespace Huginn.Modules {
-	public abstract class ModelModule<T>: NancyModule where T: Huginn.Data.BaseData {
+	public abstract class ModelModule<T>: NancyModule where T: Huginn.Data.CouchData {
 		protected DataManager<T> manager; // This **must** be set by inheriting classes
 
 		protected ModelModule(string basePath): base(basePath) {
