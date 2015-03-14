@@ -41,6 +41,19 @@ namespace Huginn.Managers {
 			return model;
 		}
 
+		public override bool Delete(string id, string revision) {
+			var result = base.Delete(id, revision);
+
+			// delete all chapters relating to this novel
+			var chapters = GetChaptersForNovel(id);
+
+			foreach(var chapter in chapters) {
+				base.Delete(chapter.Id, chapter.Revision);
+			}
+
+			return result;
+		}
+
 		public ChaptersJson Chapters(string id) {
 			var model = new ChaptersJson();
 

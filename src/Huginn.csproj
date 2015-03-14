@@ -61,9 +61,11 @@
     <Compile Include="Json\DateTimeConverter.cs" />
     <Compile Include="HuginnBootstrapper.cs" />
     <Compile Include="Data\NovelSort.cs" />
-    <Compile Include="Modules\LatestModule.cs" />
     <Compile Include="Data\Proxy.cs" />
     <Compile Include="Json\ResponseHandler.cs" />
+    <Compile Include="HuginnUser.cs" />
+    <Compile Include="Modules\SecurityModule.cs" />
+    <Compile Include="Modules\AncillaryModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">

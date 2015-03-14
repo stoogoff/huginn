@@ -1,6 +1,6 @@
-﻿using System;
-using Nancy;
+﻿using Nancy;
 using Nancy.ModelBinding;
+using Huginn.Exceptions;
 using Huginn.Managers;
 using Huginn.Json;
 
@@ -10,21 +10,14 @@ namespace Huginn.Modules {
 
 		protected ModelModule(string basePath): base(basePath) {
 			Before += context => {
-				manager.AuthorId = 2;
-				return null;
-				// This may be better as an Authorization header
-				/*var authors = context.Request.Headers["X-AUTHOR"];
+				var user = (context.CurrentUser as HuginnUser);
 
-				foreach(var author in authors) {
-					int authorId;
-
-					if(int.TryParse(author, out authorId)) {
-						manager.AuthorId = authorId;
-						break;
-					}
+				if(user != null) {
+					manager.AuthorId = user.AuthorId;
+					return null;
 				}
 
-				return manager.AuthorId == 0 ? GetResponse(new UnauthorisedException()) : null;*/
+				return ResponseHandler.GetResponse(new UnauthorisedException());
 			};
 
 			// index of T
@@ -50,7 +43,7 @@ namespace Huginn.Modules {
 				return ResponseHandler.GetResponse(HttpStatusCode.Created, manager.Save(id, model));
 			};
 
-			Delete["/{id}/{revision}"] = parameters => {
+			Delete["/{id}/revision/{revision}"] = parameters => {
 				var id = parameters.id.ToString();
 				var revision = parameters.revision.ToString();
 

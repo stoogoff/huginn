@@ -9,6 +9,9 @@ namespace Huginn.Exceptions {
 		public UnauthorisedException(): this("Authorisation not set.") {
 
 		}
+		public UnauthorisedException(Exception innerException): base(HttpStatusCode.Unauthorized, "Authorisation error.", innerException) {
+
+		}
 	}
 }
 

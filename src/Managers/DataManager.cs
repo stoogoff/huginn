@@ -33,7 +33,7 @@ namespace Huginn.Managers {
 		public abstract IModel Save(string id, S model);
 		#endregion
 
-		public bool Delete(string id, string revision) {
+		public virtual bool Delete(string id, string revision) {
 			var response = client.Delete(id, revision);
 
 			return response.Ok;
