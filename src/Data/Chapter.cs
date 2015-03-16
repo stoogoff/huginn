@@ -26,13 +26,10 @@ namespace Huginn.Data {
 		[JsonIgnore]
 		public string NextSibling { get; set; }
 
-		// TODO redis cache
 		[JsonIgnore]
 		public int WordCount {
 			get {
-				var total = Content.Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-				return total.Length;
+				return Content.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
 			}
 		}
 

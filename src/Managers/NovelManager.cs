@@ -14,6 +14,25 @@ namespace Huginn.Managers {
 
 			model.Novels = AllObjects<Novel>();
 
+			var query = new ViewQuery {
+				Group = true,
+				StartKey = ViewQuery.GetStartKey(AuthorId),
+				EndKey = ViewQuery.GetEndKey(AuthorId)
+			};
+			var count = Client.GetView<int>("novels", "document_count", query);
+			var dict = new Dictionary<string, int>();
+
+			foreach(var row in count.Rows) {
+				// row.Key[0] is the author id, row.Key[1] is the novel id
+				dict.Add(row.Key[1].ToString(), row.Value);
+			}
+
+			foreach(var novel in model.Novels) {
+				if(dict.ContainsKey(novel.Id)) {
+					novel.ChapterCount = dict[novel.Id];
+				}
+			}
+
 			return model;
 		}
 

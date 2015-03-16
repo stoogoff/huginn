@@ -101,7 +101,7 @@ namespace Huginn.Couch {
 			var response = client.Execute(request);
 
 			#if DEBUG
-			Console.WriteLine("{0} - {1} {2}{3} ({4})", DateTime.UtcNow, request.Method, url, request.Resource, (int) response.StatusCode);
+			Console.WriteLine("{0} - {1} - {2}{3} - {4}", DateTime.UtcNow, request.Method, url, request.Resource, (int) response.StatusCode);
 			#endif
 
 			if(response.ErrorException != null) {
