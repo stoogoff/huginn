@@ -35,6 +35,7 @@ namespace Huginn.Managers {
 			var novelManager = new NovelManager();
 			var chapters = novelManager.GetChaptersForNovel(data.Novel);
 
+			// set the correct sort order for the chapter
 			if(chapters.Count == 0) {
 				data.Sort = 1;
 			}
@@ -47,15 +48,29 @@ namespace Huginn.Managers {
 
 			var model = new ChapterJson();
 
-			model.Chapter = CreateObject(data);
+			model.Chapter = CreateObject<Chapter>(data);
+
+			// create a new stats object and save it
+			// this needs to be done after the chapter is saved because the new Chapter won't have an ID
+			var stats = Stats.CreateFromChapter(model.Chapter);
+
+			CreateObject<Stats>(stats);
 
 			return model;
 		}
 
 		public override IModel Save(string id, Chapter data) {
+			// get the current Chapter and store its word count
+			var current = GetObject<Chapter>(id);
+
+			// create a new stats object and save it
+			var stats = Stats.CreateFromChapter(data, data.WordCount - current.WordCount);
+
+			CreateObject<Stats>(stats);
+
 			var model = new ChapterJson();
 
-			model.Chapter = SaveObject(id, data);
+			model.Chapter = SaveObject<Chapter>(id, data);
 
 			return model;
 		}
