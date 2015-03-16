@@ -28,6 +28,19 @@ namespace Huginn.Managers {
 
 			model.Entities = novelManager.GetEntitiesForNovel(model.Novel.Id);
 
+			// get the next sibling for this chapter
+			var siblings = novelManager.GetChaptersForNovel(model.Novel.Id);
+			var next = false;
+
+			foreach(var sibling in siblings) {
+				if(next) {
+					model.Chapter.NextSibling = sibling.Id;
+					break;
+				}
+
+				next = sibling.Id == id;
+			}
+
 			return model;
 		}
 

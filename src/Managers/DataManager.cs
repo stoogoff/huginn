@@ -28,9 +28,9 @@ namespace Huginn.Managers {
 
 		public abstract IModel Get(string id);
 
-		public abstract IModel Create(S model);
+		public abstract IModel Create(S data);
 
-		public abstract IModel Save(string id, S model);
+		public abstract IModel Save(string id, S data);
 		#endregion
 
 		public virtual bool Delete(string id, string revision) {
