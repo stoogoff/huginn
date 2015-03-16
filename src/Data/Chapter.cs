@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 
 namespace Huginn.Data {
 	public class Chapter: CouchData {
+		private string title;
+
 		[JsonProperty("doc_type")]
 		public string DocType {
 			get {
@@ -12,7 +14,14 @@ namespace Huginn.Data {
 		}
 
 		[JsonProperty("title")]
-		public string Title { get; set; }
+		public string Title {
+			get {
+				return string.IsNullOrWhiteSpace(title) ? "Unnamed Document" : title;
+			}
+			set {
+				title = value;
+			}
+		}
 
 		[JsonProperty("content")]
 		public string Content { get; set; }

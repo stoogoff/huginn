@@ -4,6 +4,7 @@ using Nancy;
 using Huginn.Couch;
 using Huginn.Data;
 using Huginn.Json;
+using Huginn.Extensions;
 
 namespace Huginn.Modules {
 	public class StatsModule: SecurityModule {
@@ -15,7 +16,7 @@ namespace Huginn.Modules {
 					Group = true
 				};
 				var result = client.GetView<int>("stats", "objects_by_author", query);
-				var response = new StatsCountJson();
+				var response = new ValuesJson();
 
 				foreach(var item in result.Rows) {
 					// item.Key[0] is the author id, item.Key[1] is the type
@@ -47,6 +48,20 @@ namespace Huginn.Modules {
 
 				return GetDateRange(start, end, "yyyy-MM-dd", "by_day");
 			};
+
+			Get["/last_write"] = parameters => {
+				var query = new ViewQuery {
+					StartKey = ViewQuery.GetStartKey(AuthorId),
+					EndKey = ViewQuery.GetEndKey(AuthorId),
+					Group = true
+				};
+				var result = client.GetView<long>("stats", "last_write", query);
+				var response = new ValueJson<DateTime>();
+
+				response.Value = result.Rows.Count > 0 ? result.Rows[0].Value.FromUnixTime() : DateTime.UtcNow;
+
+				return ResponseHandler.GetResponse(response);
+			};
 		}
 
 		protected Response GetDateRange(DateTime start, DateTime end, string dateFormat, string view) {
@@ -57,7 +72,7 @@ namespace Huginn.Modules {
 			};
 
 			var result = client.GetView<int>("stats", view, query);
-			var response = new StatsCountJson();
+			var response = new ValuesJson();
 
 			// the entire date range needs to be sent back
 			// convert to dictionary for easier lookup

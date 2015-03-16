@@ -68,6 +68,7 @@
     <Compile Include="Data\Stats.cs" />
     <Compile Include="Data\CouchData.cs" />
     <Compile Include="Modules\StatsModule.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
@@ -95,6 +96,7 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Data\" />
     <Folder Include="Json\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
