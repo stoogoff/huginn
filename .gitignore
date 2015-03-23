@@ -22,6 +22,9 @@ Gemfile.lock
 Huginn/bin/*
 Huginn/obj/*
 Huginn/packages/*
+CouchManager/bin/*
+CouchManager/obj/*
+CouchManager/packages/*
 
 # ruby
 support/.bundle

@@ -67,7 +67,7 @@ namespace Huginn {
 			};
 
 			// set up custom DateTime converter for JSON serialisation
-			JsonSettings.PrimitiveConverters.Add(new Huginn.Json.DateTimeConverter());
+			JsonSettings.PrimitiveConverters.Add(new DateTimeConverter());
 		}
 	}
 }
