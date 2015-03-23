@@ -19,9 +19,9 @@ atlassian-ide-plugin.xml
 Gemfile.lock
 
 # Project
-src/bin/*
-src/obj/*
-src/packages/*
+Huginn/bin/*
+Huginn/obj/*
+Huginn/packages/*
 
 # ruby
 support/.bundle

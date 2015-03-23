@@ -19,7 +19,7 @@ namespace Huginn.Managers {
 				StartKey = ViewQuery.GetStartKey(AuthorId),
 				EndKey = ViewQuery.GetEndKey(AuthorId)
 			};
-			var count = Client.GetView<int>("novels", "document_count", query);
+			var count = Client.GetView<int>(view, "document_count", query);
 			var dict = new Dictionary<string, int>();
 
 			foreach(var row in count.Rows) {

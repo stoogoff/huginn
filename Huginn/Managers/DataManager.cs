@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Huginn.Couch;
 using Huginn.Data;
 using Huginn.Json;
@@ -10,7 +11,11 @@ namespace Huginn.Managers {
 		protected string view;
 
 		protected DataManager(string view) {
-			client = new CouchClient("muninn");
+			var host = ConfigurationManager.AppSettings["CouchHost"] ?? "localhost";
+			var port = ConfigurationManager.AppSettings["CouchPort"] ?? "5984";
+			var database = ConfigurationManager.AppSettings["CouchDatabase"];
+
+			client = new CouchClient(host, port, database);
 
 			this.view = view;
 		}

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Nancy;
 using Huginn.Couch;
-using Huginn.Data;
 using Huginn.Json;
 using Huginn.Extensions;
 
