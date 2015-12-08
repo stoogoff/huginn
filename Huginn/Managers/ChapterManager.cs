@@ -19,17 +19,17 @@ namespace Huginn.Managers {
 			var model = new ChapterJson();
 
 			model.Chapter = GetObject<Chapter>(id);
-			model.Novel = GetObject<Novel>(model.Chapter.Novel);
+			model.Book = GetObject<Book>(model.Chapter.Book);
 
 			// get the entities which can be applied to this chapter
-			var novelManager = new NovelManager();
+			var novelManager = new BookManager();
 
 			novelManager.AuthorId = AuthorId;
 
-			model.Entities = novelManager.GetEntitiesForNovel(model.Novel.Id);
+			model.Entities = novelManager.GetEntitiesForNovel(model.Book.Id);
 
 			// get the next sibling for this chapter
-			var siblings = novelManager.GetChaptersForNovel(model.Novel.Id);
+			var siblings = novelManager.GetChaptersForNovel(model.Book.Id);
 			var next = false;
 
 			foreach(var sibling in siblings) {
@@ -45,8 +45,8 @@ namespace Huginn.Managers {
 		}
 
 		public override IModel Create(Chapter data) {
-			var novelManager = new NovelManager();
-			var chapters = novelManager.GetChaptersForNovel(data.Novel);
+			var novelManager = new BookManager();
+			var chapters = novelManager.GetChaptersForNovel(data.Book);
 
 			// set the correct sort order for the chapter
 			if(chapters.Count == 0) {

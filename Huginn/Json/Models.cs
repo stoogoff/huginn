@@ -6,19 +6,19 @@ namespace Huginn.Json {
 
 	}
 
-	public class NovelJson: IModel {
-		public Novel Novel { get; set; }
+	public class BookJson: IModel {
+		public Book Book { get; set; }
 		public IList<Chapter> Chapters { get; set; }
 		public IList<Entity> Entities { get; set; }
 		public IList<Profile> Profiles { get; set; }
 	}
-	public class NovelsJson: IModel {
-		public IList<Novel> Novels { get; set; }
+	public class BooksJson: IModel {
+		public IList<Book> Books { get; set; }
 	}
 
 	public class ChapterJson: IModel {
 		public Chapter Chapter { get; set; }
-		public Novel Novel { get; set; }
+		public Book Book { get; set; }
 		public IList<Entity> Entities { get; set; }
 	}
 	public class ChaptersJson: IModel {
@@ -27,7 +27,7 @@ namespace Huginn.Json {
 
 	public class EntityJson: IModel {
 		public Entity Entity { get; set; }
-		public IList<Novel> Novels { get; set; }
+		public IList<Book> Books { get; set; }
 		public IList<ChapterSummary> Chapters { get; set; }
 	}
 	public class EntitiesJson: IModel {
@@ -36,11 +36,11 @@ namespace Huginn.Json {
 
 	public class ProfileJson: IModel {
 		public Profile Profile { get; set; }
-		public IList<Novel> Novels { get; set; }
+		public IList<Book> Books { get; set; }
 	}
 	public class ProfilesJson: IModel {
 		public IList<Profile> Profiles { get; set; }
-		public IList<Novel> Novels { get; set; }
+		public IList<Book> Books { get; set; }
 	}
 	public class ValuesJson: IModel {
 		public IList<KeyValue<string, int>> Values { get; set; }

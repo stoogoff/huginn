@@ -4,15 +4,15 @@ using Huginn.Couch;
 using Huginn.Json;
 
 namespace Huginn.Managers {
-	public class NovelManager: DataManager<Novel> {
-		public NovelManager(): base("novels") {}
+	public class BookManager: DataManager<Book> {
+		public BookManager(): base("novels") {}
 
 		public override IModel All() {
 			// TODO chapter count
 
-			var model = new NovelsJson();
+			var model = new BooksJson();
 
-			model.Novels = AllObjects<Novel>();
+			model.Books = AllObjects<Book>();
 
 			var query = new ViewQuery {
 				Group = true,
@@ -27,7 +27,7 @@ namespace Huginn.Managers {
 				dict.Add(row.Key[1].ToString(), row.Value);
 			}
 
-			foreach(var novel in model.Novels) {
+			foreach(var novel in model.Books) {
 				if(dict.ContainsKey(novel.Id)) {
 					novel.ChapterCount = dict[novel.Id];
 				}
@@ -37,25 +37,25 @@ namespace Huginn.Managers {
 		}
 
 		public override IModel Get(string id) {
-			var model = new NovelJson();
+			var model = new BookJson();
 
-			model.Novel = GetObject<Novel>(id);
-
-			return model;
-		}
-
-		public override IModel Create(Novel data) {
-			var model = new NovelJson();
-
-			model.Novel = CreateObject(data);
+			model.Book = GetObject<Book>(id);
 
 			return model;
 		}
 
-		public override IModel Save(string id, Novel data) {
-			var model = new NovelJson();
+		public override IModel Create(Book data) {
+			var model = new BookJson();
 
-			model.Novel = SaveObject(id, data);
+			model.Book = CreateObject(data);
+
+			return model;
+		}
+
+		public override IModel Save(string id, Book data) {
+			var model = new BookJson();
+
+			model.Book = SaveObject(id, data);
 
 			return model;
 		}
@@ -81,31 +81,31 @@ namespace Huginn.Managers {
 			return model;
 		}
 
-		public NovelJson Data(string id) {
-			var model = new NovelJson();
+		public BookJson Data(string id) {
+			var model = new BookJson();
 
-			model.Novel = GetObject<Novel>(id);
+			model.Book = GetObject<Book>(id);
 			model.Chapters = GetChaptersForNovel(id);
 			model.Entities = GetEntitiesForNovel(id);
-			model.Profiles = GetProfilesForNovel(model.Novel.Contributors);
+			model.Profiles = GetProfilesForNovel(model.Book.Contributors);
 
 			return model;
 		}
 
-		public NovelsJson Archive() {
-			var model = new NovelsJson();
+		public BooksJson Archive() {
+			var model = new BooksJson();
 			var query = new ViewQuery {
 				StartKey = ViewQuery.GetStartKey(AuthorId),
 				EndKey = ViewQuery.GetEndKey(AuthorId)
 			};
-			var response = Client.GetView<Novel>(view, "archived_by_author", query);
+			var response = Client.GetView<Book>(view, "archived_by_author", query);
 
-			model.Novels = response.ToList();
+			model.Books = response.ToList();
 
 			return model;
 		}
 
-		public void Sort(NovelSort sort) {
+		public void Sort(BookSort sort) {
 			var raw = GetChaptersForNovel(sort.Id);
 			var chapters = new Dictionary<string, Chapter>();
 

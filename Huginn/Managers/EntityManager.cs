@@ -24,15 +24,15 @@ namespace Huginn.Managers {
 
 			// get novels this entity is linked to
 			if(model.Entity.Novels != null && model.Entity.Novels.Count > 0) {
-				var novels = AllObjects<Novel>("novels");
-				var list = new List<Novel>();
+				var novels = AllObjects<Book>("novels");
+				var list = new List<Book>();
 
 				foreach(var novel in novels) {
 					if(model.Entity.Novels.Contains(novel.Id))
 						list.Add(novel);
 				}
 
-				model.Novels = list;
+				model.Books = list;
 			}
 
 			// get chapters this entity is used in

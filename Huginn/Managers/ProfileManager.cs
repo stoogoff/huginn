@@ -23,7 +23,7 @@ namespace Huginn.Managers {
 			var model = new ProfileJson();
 
 			model.Profile = GetObject<Profile>(id);
-			model.Novels = GetNovels(id);
+			model.Books = GetNovels(id);
 
 			return model;
 		}
@@ -44,20 +44,20 @@ namespace Huginn.Managers {
 			return model;
 		}
 
-		public NovelsJson Novels(string id) {
-			var model = new NovelsJson();
+		public BooksJson Novels(string id) {
+			var model = new BooksJson();
 
-			model.Novels = GetNovels(id);
+			model.Books = GetNovels(id);
 
 			return model;
 		}
 
-		protected IList<Novel> GetNovels(string id) {
+		protected IList<Book> GetNovels(string id) {
 			var query = new ViewQuery {
 				StartKey = ViewQuery.GetStartKey(id),
 				EndKey = ViewQuery.GetEndKey(id)
 			};
-			var response = Client.GetView<Novel>("novels", "by_contributor", query);
+			var response = Client.GetView<Book>("novels", "by_contributor", query);
 
 			return response.ToList();
 		}

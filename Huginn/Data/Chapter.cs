@@ -27,7 +27,7 @@ namespace Huginn.Data {
 		public string Content { get; set; }
 
 		[JsonProperty("novel")]
-		public string Novel { get; set; }
+		public string Book { get; set; }
 
 		[JsonProperty("sort")]
 		public int Sort { get; set; }

@@ -33,7 +33,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Modules\ModelModule.cs" />
-    <Compile Include="Modules\NovelModule.cs" />
     <Compile Include="Modules\ChapterModule.cs" />
     <Compile Include="Modules\EntityModule.cs" />
     <Compile Include="Modules\ProfileModule.cs" />
@@ -42,12 +41,10 @@
     <Compile Include="Couch\Uuid.cs" />
     <Compile Include="Couch\ViewResult.cs" />
     <Compile Include="Couch\ViewQuery.cs" />
-    <Compile Include="Managers\NovelManager.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="Exceptions\ObjectNotFoundException.cs" />
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Managers\ProfileManager.cs" />
-    <Compile Include="Data\Novel.cs" />
     <Compile Include="Data\Chapter.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\Profile.cs" />
@@ -59,7 +56,6 @@
     <Compile Include="Json\SerialiserSettings.cs" />
     <Compile Include="Json\DateTimeConverter.cs" />
     <Compile Include="HuginnBootstrapper.cs" />
-    <Compile Include="Data\NovelSort.cs" />
     <Compile Include="Data\Proxy.cs" />
     <Compile Include="Json\ResponseHandler.cs" />
     <Compile Include="HuginnUser.cs" />
@@ -69,6 +65,10 @@
     <Compile Include="Data\CouchData.cs" />
     <Compile Include="Modules\StatsModule.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Data\Book.cs" />
+    <Compile Include="Data\BookSort.cs" />
+    <Compile Include="Managers\BookManager.cs" />
+    <Compile Include="Modules\BookModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
