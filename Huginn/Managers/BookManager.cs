@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
-using Huginn.Data;
-using Huginn.Couch;
-using Huginn.Json;
 
 namespace Huginn.Managers {
+	using Huginn.Data;
+	using Huginn.Couch;
+	using Huginn.Json;
+	using Huginn.Models;
+
 	public class BookManager: DataManager<Book> {
 		public BookManager(): base("novels") {}
 
@@ -43,6 +45,12 @@ namespace Huginn.Managers {
 
 			return model;
 		}
+
+		/*public BookViewModel Get2(string id) {
+			var book = GetObject<Book>(id);
+
+			return BookViewModel.Create(book);
+		}*/
 
 		public override IModel Create(Book data) {
 			var model = new BookJson();

@@ -2,14 +2,13 @@
 using System.Net;
 using RestSharp;
 using Newtonsoft.Json;
-using Huginn.Exceptions;
-using Huginn.Json;
 
 namespace Huginn.Couch {
-	public class CouchClient {
-		public CouchClient(string database): this("localhost", "5984", database) {
+	using Huginn.Exceptions;
+	using Huginn.Json;
 
-		}
+	public class CouchClient {
+		public CouchClient(string database): this("localhost", "5984", database) { }
 
 		public CouchClient(string host, string port, string database) {
 			Host = host;

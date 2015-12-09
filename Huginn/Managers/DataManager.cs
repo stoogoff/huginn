@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Huginn.Couch;
-using Huginn.Data;
-using Huginn.Json;
 
 namespace Huginn.Managers {
+	using Huginn.Couch;
+	using Huginn.Data;
+	using Huginn.Models;
+
 	public abstract class DataManager<S> {
 		private CouchClient client;
 		protected string view;
@@ -64,7 +65,7 @@ namespace Huginn.Managers {
 
 		// save a new object
 		protected T CreateObject<T>(T model) where T: CouchData  {
-			model.Created = DateTime.UtcNow;
+			model.Modified = model.Created = DateTime.UtcNow;
 
 			var response = client.Save(model);
 

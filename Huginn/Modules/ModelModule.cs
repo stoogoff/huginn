@@ -1,10 +1,11 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
-using Huginn.Exceptions;
-using Huginn.Managers;
-using Huginn.Json;
 
 namespace Huginn.Modules {
+	using Huginn.Exceptions;
+	using Huginn.Managers;
+	using Huginn.Json;
+
 	public abstract class ModelModule<T>: NancyModule where T: Huginn.Data.CouchData {
 		protected DataManager<T> manager; // This **must** be set by inheriting classes
 
@@ -21,7 +22,7 @@ namespace Huginn.Modules {
 			};
 
 			// index of T
-			Get["/"] = parameters => ResponseHandler.GetResponse(manager.All());
+			Get["/"] = parameters => manager.All();
 
 			Post["/"] = parameters => {
 				var model = this.Bind<T>();
@@ -33,7 +34,7 @@ namespace Huginn.Modules {
 			Get["/{id}"] = parameters => {
 				var id = parameters.id.ToString();
 
-				return ResponseHandler.GetResponse(manager.Get(id));
+				return manager.Get(id);
 			};
 
 			Put["/{id}"] = parameters => {

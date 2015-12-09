@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 using Huginn.Data;
+using Huginn.Models;
 
 namespace Huginn.Json {
-	public interface IModel {
-
-	}
-
 	public class BookJson: IModel {
 		public Book Book { get; set; }
 		public IList<Chapter> Chapters { get; set; }

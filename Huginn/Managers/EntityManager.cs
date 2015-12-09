@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
-using Huginn.Couch;
-using Huginn.Data;
-using Huginn.Json;
 
 namespace Huginn.Managers {
+	using Huginn.Couch;
+	using Huginn.Data;
+	using Huginn.Json;
+	using Huginn.Models;
+
 	public class EntityManager: DataManager<Entity> {
 		public EntityManager(): base("entities") {
 

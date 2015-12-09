@@ -1,21 +1,28 @@
 ﻿using Nancy.ModelBinding;
-using Huginn.Managers;
-using Huginn.Data;
-using Huginn.Json;
 
 namespace Huginn.Modules {
+	using Huginn.Managers;
+	using Huginn.Data;
+	using Huginn.Json;
+
 	public class BookModule: ModelModule <Huginn.Data.Book> {
 		public BookModule(): base("/books") {
 			manager = new BookManager();
 
-			Get["/archive"] = parameters => ResponseHandler.GetResponse((manager as BookManager).Archive());
+			/*Get["/test/{id}"] = parameters => {
+				var id = parameters.id.ToString();
+
+				return (manager as BookManager).Get2(id);
+			};*/
+
+			Get["/archive"] = parameters => (manager as BookManager).Archive();
 
 			Put["/{id}/sort"] = parameters => {
 				var sort = this.Bind<BookSort>();
 
 				(manager as BookManager).Sort(sort);
 
-				return ResponseHandler.GetResponse("OK");
+				return "OK";
 			};
 
 			Get["/{id}/data"] = parameters => {

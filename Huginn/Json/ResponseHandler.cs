@@ -1,13 +1,14 @@
 ﻿using System;
 using Nancy;
 using Nancy.Responses;
-using Huginn.Exceptions;
 
 namespace Huginn.Json {
+	using Huginn.Exceptions;
+
 	public static class ResponseHandler {
-		public static Response GetResponse(object model) {
+		/*public static Response GetResponse(object model) {
 			return GetResponse(HttpStatusCode.OK, model);
-		}
+		}*/
 
 		public static Response GetResponse(HttpStatusCode status, object model) {
 			var response = new JsonResponse(model, new DefaultJsonSerializer());
@@ -34,4 +35,3 @@ namespace Huginn.Json {
 		}
 	}
 }
-

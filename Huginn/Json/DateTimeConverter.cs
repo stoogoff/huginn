@@ -26,10 +26,11 @@ namespace Huginn.Json {
 
 		public override object Deserialize(object primitiveValue, Type type, JavaScriptSerializer serializer) {
 			if((type == typeof(DateTime)) && (primitiveValue is string)) {
-				try {
-					return DateTime.Parse(primitiveValue as string);
+				DateTime date;
+
+				if(DateTime.TryParse(primitiveValue.ToString(), out date)) {
+					return date;
 				}
-				catch { }
 			}
 
 			return null;

@@ -15,7 +15,17 @@ namespace Huginn {
 
 			// get authentication information
 			pipelines.BeforeRequest += context => {
-				var auth = context.Request.Headers.Authorization;
+				var user = new HuginnUser {
+					AuthorId = 2,
+					UserName = "storytella",
+					Claims = new List<string>()
+				};
+
+				context.CurrentUser = user;
+
+				return null;
+
+				/*var auth = context.Request.Headers.Authorization;
 
 				if(string.IsNullOrEmpty(auth)) {
 					return ResponseHandler.GetResponse(new UnauthorisedException());
@@ -51,7 +61,7 @@ namespace Huginn {
 				}
 				catch(Exception ex) {
 					return ResponseHandler.GetResponse(ex);
-				}
+				}*/
 			};
 
 			// handle all exceptions and return a JSON response

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using Nancy;
-using Huginn.Couch;
-using Huginn.Data;
-using Huginn.Json;
 
 namespace Huginn.Modules {
+	using Huginn.Couch;
+	using Huginn.Data;
+	using Huginn.Json;
+
 	public class AncillaryModule: SecurityModule {
 		public AncillaryModule() {
 			// latest changes
-			Get["/latest"] = parameters => ResponseHandler.GetResponse(GetLatest(10));
+			Get["/latest"] = parameters => GetLatest(10);
 
 			Get["/latest/{limit:int}"] = paremeters => ResponseHandler.GetResponse(GetLatest(paremeters.limit));
 
@@ -20,7 +20,7 @@ namespace Huginn.Modules {
 				};
 				var result = client.GetView<Proxy>("all", "in_trash", query);
 
-				return ResponseHandler.GetResponse(result.ToList());
+				return result.ToList();
 			};
 		}
 

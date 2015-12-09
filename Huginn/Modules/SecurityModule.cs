@@ -1,9 +1,10 @@
 ﻿using Nancy;
-using Huginn.Couch;
-using Huginn.Json;
-using Huginn.Exceptions;
 
 namespace Huginn.Modules {
+	using Huginn.Couch;
+	using Huginn.Json;
+	using Huginn.Exceptions;
+
 	public class SecurityModule: NancyModule {
 		protected CouchClient client = new CouchClient("muninn");
 

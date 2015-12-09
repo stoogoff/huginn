@@ -69,6 +69,15 @@
     <Compile Include="Data\BookSort.cs" />
     <Compile Include="Managers\BookManager.cs" />
     <Compile Include="Modules\BookModule.cs" />
+    <Compile Include="Models\IModel.cs" />
+    <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="Models\BookViewModel.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
+    <Compile Include="Models\EntityViewModel.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Models\ProxyViewModel.cs" />
+    <Compile Include="Models\ParsedChapterViewModel.cs" />
+    <Compile Include="Models\RawChapterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
@@ -86,6 +95,7 @@
       <HintPath>packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -99,6 +109,7 @@
     <Folder Include="Data\" />
     <Folder Include="Json\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nancy;
-using Huginn.Couch;
-using Huginn.Json;
-using Huginn.Extensions;
 
 namespace Huginn.Modules {
+	using Huginn.Couch;
+	using Huginn.Json;
+	using Huginn.Extensions;
+
 	public class StatsModule: SecurityModule {
 		public StatsModule(): base("/stats") {
 			Get["/objects"] = parameters => {
@@ -29,7 +30,7 @@ namespace Huginn.Modules {
 					response.Add(key, item.Value);
 				}
 
-				return ResponseHandler.GetResponse(response);
+				return response;
 			};
 
 			Get["/months/{amount:int}"] = parameters => {
@@ -59,11 +60,11 @@ namespace Huginn.Modules {
 
 				response.Value = result.Rows.Count > 0 ? result.Rows[0].Value.FromUnixTime() : DateTime.UtcNow;
 
-				return ResponseHandler.GetResponse(response);
+				return response;
 			};
 		}
 
-		protected Response GetDateRange(DateTime start, DateTime end, string dateFormat, string view) {
+		protected ValuesJson GetDateRange(DateTime start, DateTime end, string dateFormat, string view) {
 			var query = new ViewQuery {
 				StartKey = "[" + AuthorId + ",\"" + start.ToString(dateFormat) + "\"]",
 				EndKey = "[" + AuthorId + ",\"" + end.ToString(dateFormat) + "\"]",
@@ -97,7 +98,7 @@ namespace Huginn.Modules {
 					start = start.AddMonths(1);
 			}
 
-			return ResponseHandler.GetResponse(response);
+			return response;
 		}
 	}
 }

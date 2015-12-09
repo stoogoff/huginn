@@ -1,8 +1,10 @@
 ﻿using System.Linq;
-using Huginn.Data;
-using Huginn.Json;
 
 namespace Huginn.Managers {
+	using Huginn.Data;
+	using Huginn.Json;
+	using Huginn.Models;
+
 	public class ChapterManager: DataManager<Chapter> {
 		public ChapterManager(): base("articles") {
 		}
