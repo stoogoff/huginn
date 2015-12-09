@@ -29,11 +29,11 @@ namespace Huginn.Managers {
 				dict.Add(row.Key[1].ToString(), row.Value);
 			}
 
-			foreach(var novel in model.Books) {
+			/*foreach(var novel in model.Books) {
 				if(dict.ContainsKey(novel.Id)) {
 					novel.ChapterCount = dict[novel.Id];
 				}
-			}
+			}*/
 
 			return model;
 		}

@@ -16,6 +16,10 @@ namespace Huginn.Models {
 	// /profiles/<id>/books - IList<BookViewModel>
 	[XmlRootAttribute("book")]
 	public class BookViewModel: ViewModel {
+		public BookViewModel() {
+			Object = "book";
+		}
+
 		[JsonProperty("title")]
 		[XmlElement("title")]
 		public string Title { get; set; }
@@ -44,13 +48,6 @@ namespace Huginn.Models {
 		[XmlElement("image")]
 		public int? Image { get; set; }
 
-		[JsonProperty("chapter_count")]
-		public int ChapterCount { get; set; }
-
-		[JsonProperty("word_count")]
-		[XmlElement("word-count")]
-		public int WordCount { get; set; }
-
 		[JsonProperty("editable")]
 		[XmlElement("editable")]
 		public bool Editable {
@@ -62,13 +59,12 @@ namespace Huginn.Models {
 		// TODO automapper?
 		// TODO JsonProperty should be a generic property converter so it handles XML too
 
-		/*public static BookViewModel Create(Book book) {
+		public static BookViewModel Create(Book book) {
 			var created = new BookViewModel {
 				Id = book.Id,
 				Revision = book.Revision,
 				Created = book.Created,
 				Modified = book.Modified,
-				Object = "book",
 				Title = book.Title,
 				Synopsis = book.Synopsis,
 				Publisher = book.Publisher,
@@ -76,26 +72,10 @@ namespace Huginn.Models {
 				IncludeSynopsis = book.IncludeSynopsis ?? false,
 				Image = book.Image,
 				Archive = book.Archive,
-				//ChapterCount = 0,
-				WordCount = 0,
 			};
 
 			return created;
 		}
-
-		public static BookViewModel Create(Book book, IList<Chapter> chapters) {
-			var created = Create(book);
-			var wordCount = 0;
-
-			foreach(var chapter in chapters) {
-				wordCount += chapter.WordCount;
-			}
-
-			book.WordCount = wordCount;
-			//book.ChapterCount = chapters.Count;
-
-			return created;
-		}*/
 	}
 
 	// not sure about this?

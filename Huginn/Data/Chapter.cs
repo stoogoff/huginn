@@ -16,7 +16,7 @@ namespace Huginn.Data {
 		[JsonProperty("title")]
 		public string Title {
 			get {
-				return string.IsNullOrWhiteSpace(title) ? "Unnamed Document" : title;
+				return string.IsNullOrWhiteSpace(title) ? "Unnamed Chapter" : title;
 			}
 			set {
 				title = value;
@@ -31,9 +31,6 @@ namespace Huginn.Data {
 
 		[JsonProperty("sort")]
 		public int Sort { get; set; }
-
-		[JsonIgnore]
-		public string NextSibling { get; set; }
 
 		[JsonIgnore]
 		public int WordCount {

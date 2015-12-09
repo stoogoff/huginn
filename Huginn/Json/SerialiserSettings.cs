@@ -5,6 +5,7 @@ namespace Huginn.Json {
 		public const string Format = "yyyy-MM-ddTHH:mm:ssZ";
 
 		public SerialiserSettings() {
+			Formatting = Formatting.Indented;
 			DateFormatString = Format;
 			NullValueHandling = NullValueHandling.Ignore;
 		}

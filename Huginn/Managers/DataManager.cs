@@ -8,7 +8,7 @@ namespace Huginn.Managers {
 	using Huginn.Models;
 
 	public abstract class DataManager<S> {
-		private CouchClient client;
+		private readonly CouchClient client;
 		protected string view;
 
 		protected DataManager(string view) {

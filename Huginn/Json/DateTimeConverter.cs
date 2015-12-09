@@ -4,9 +4,7 @@ using Nancy.Json;
 
 namespace Huginn.Json {
 	public class DateTimeConverter: JavaScriptPrimitiveConverter {
-		public DateTimeConverter() {
-
-		}
+		public DateTimeConverter() { }
 
 		public override IEnumerable<Type> SupportedTypes {
 			get {

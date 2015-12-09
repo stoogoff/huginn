@@ -32,7 +32,7 @@ namespace Huginn.Managers {
 
 			// get the next sibling for this chapter
 			var siblings = novelManager.GetChaptersForNovel(model.Book.Id);
-			var next = false;
+			/*var next = false;
 
 			foreach(var sibling in siblings) {
 				if(next) {
@@ -41,7 +41,7 @@ namespace Huginn.Managers {
 				}
 
 				next = sibling.Id == id;
-			}
+			}*/
 
 			return model;
 		}

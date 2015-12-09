@@ -1,19 +1,13 @@
 ﻿using Nancy.ModelBinding;
 
 namespace Huginn.Modules {
-	using Huginn.Managers;
+	using Huginn.Services;
 	using Huginn.Data;
 	using Huginn.Json;
 
 	public class BookModule: ModelModule <Huginn.Data.Book> {
 		public BookModule(): base("/books") {
-			manager = new BookManager();
-
-			/*Get["/test/{id}"] = parameters => {
-				var id = parameters.id.ToString();
-
-				return (manager as BookManager).Get2(id);
-			};*/
+			service = new BookService();
 
 			Get["/archive"] = parameters => (manager as BookManager).Archive();
 
