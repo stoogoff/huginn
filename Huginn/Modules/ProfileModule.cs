@@ -1,6 +1,6 @@
 ﻿
 namespace Huginn.Modules {
-	using Huginn.Managers;
+	/*using Huginn.Managers;
 	using Huginn.Json;
 
 	public class ProfileModule: ModelModule<Huginn.Data.Profile> {
@@ -13,6 +13,6 @@ namespace Huginn.Modules {
 				return ResponseHandler.GetResponse((manager as ProfileManager).Novels(id));
 			};
 		}
-	}
+	}*/
 }
 

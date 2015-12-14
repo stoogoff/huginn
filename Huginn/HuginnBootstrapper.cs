@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Configuration;
 using Nancy;
 using Nancy.TinyIoc;
 using Nancy.Bootstrapper;
 using Nancy.Json;
-using Huginn.Json;
-using Huginn.Exceptions;
 
 namespace Huginn {
+	using Huginn.Couch;
+	using Huginn.Json;
+	using Huginn.Exceptions;
+
 	public class HuginnBootstrapper: DefaultNancyBootstrapper {
 		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines) {
 			base.ApplicationStartup(container, pipelines);
@@ -78,6 +81,13 @@ namespace Huginn {
 
 			// set up custom DateTime converter for JSON serialisation
 			JsonSettings.PrimitiveConverters.Add(new DateTimeConverter());
+
+			// set up couch and register interface -> implementation mappings
+			var host = ConfigurationManager.AppSettings["CouchHost"] ?? "localhost";
+			var port = ConfigurationManager.AppSettings["CouchPort"] ?? "5984";
+			var database = ConfigurationManager.AppSettings["CouchDatabase"];
+
+			container.Register<ICouchClient, CouchClient>(new CouchClient(host, port, database));
 		}
 	}
 }

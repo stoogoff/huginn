@@ -2,13 +2,13 @@
 using Nancy.ModelBinding;
 
 namespace Huginn.Modules {
-	using Huginn.Services;
+	/*using Huginn.Services;
 	using Huginn.Exceptions;
 	using Huginn.Managers;
 	using Huginn.Json;
 
-	public abstract class ModelModule<T>: NancyModule where T: Huginn.Models.ViewModel {
-		protected IModelViewService<T> service; // This **must** be set by inheriting classes
+	public abstract class ModelModule<T,S>: NancyModule where T: Huginn.Models.ViewModel<S> {
+		protected IModelViewService<T,S> service; // This **must** be set by inheriting classes
 
 		protected ModelModule(string basePath): base(basePath) {
 			Before += context => {
@@ -55,6 +55,6 @@ namespace Huginn.Modules {
 
 			// TODO versions
 		}
-	}
+	}*/
 }
 

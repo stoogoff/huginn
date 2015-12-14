@@ -6,25 +6,20 @@ namespace Huginn.Services {
 	using Huginn.Couch;
 	using Huginn.Data;
 
-	public class DataRepository {
-		private readonly CouchClient client;
+	public class CouchRepository: IDataRepository {
+		private readonly ICouchClient client;
 
-		public DataRepository(int authorId) {
-			var host = ConfigurationManager.AppSettings["CouchHost"] ?? "localhost";
-			var port = ConfigurationManager.AppSettings["CouchPort"] ?? "5984";
-			var database = ConfigurationManager.AppSettings["CouchDatabase"];
-
-			client = new CouchClient(host, port, database);
-			AuthorId = authorId;
+		public CouchRepository(ICouchClient couchClient) {
+			client = couchClient;
 		}
 
-		public CouchClient Client {
+		public ICouchClient Client {
 			get {
 				return client;
 			}
 		}
 
-		public int AuthorId { get; protected set; }
+		public int AuthorId { get; set; }
 
 		/*public IList<T> AllObjects<T>() {
 			return AllObjects<T>(view);

@@ -78,11 +78,14 @@
     <Compile Include="Models\ProxyViewModel.cs" />
     <Compile Include="Models\ParsedChapterViewModel.cs" />
     <Compile Include="Models\RawChapterViewModel.cs" />
-    <Compile Include="Services\DataRepository.cs" />
     <Compile Include="Services\IModelViewService.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Modules\TestModule.cs" />
     <Compile Include="Json\JsonSerialiser.cs" />
+    <Compile Include="Couch\ICouchClient.cs" />
+    <Compile Include="Services\CouchRepository.cs" />
+    <Compile Include="Services\IDataRepository.cs" />
+    <Compile Include="Services\BaseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">

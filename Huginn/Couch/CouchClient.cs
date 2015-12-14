@@ -7,7 +7,7 @@ namespace Huginn.Couch {
 	using Huginn.Exceptions;
 	using Huginn.Json;
 
-	public class CouchClient {
+	public class CouchClient: ICouchClient {
 		public CouchClient(string database): this("localhost", "5984", database) { }
 
 		public CouchClient(string host, string port, string database) {

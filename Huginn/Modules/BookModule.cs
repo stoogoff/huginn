@@ -1,7 +1,7 @@
 ﻿using Nancy.ModelBinding;
 
 namespace Huginn.Modules {
-	using Huginn.Services;
+	/*using Huginn.Services;
 	using Huginn.Data;
 	using Huginn.Json;
 
@@ -36,6 +36,6 @@ namespace Huginn.Modules {
 				return ResponseHandler.GetResponse((manager as BookManager).Entities(id));
 			};
 		}
-	}
+	}*/
 }
 

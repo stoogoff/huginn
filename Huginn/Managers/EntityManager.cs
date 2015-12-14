@@ -25,12 +25,12 @@ namespace Huginn.Managers {
 			model.Entity = GetObject<Entity>(id);
 
 			// get novels this entity is linked to
-			if(model.Entity.Novels != null && model.Entity.Novels.Count > 0) {
+			if(model.Entity.Books != null && model.Entity.Books.Count > 0) {
 				var novels = AllObjects<Book>("novels");
 				var list = new List<Book>();
 
 				foreach(var novel in novels) {
-					if(model.Entity.Novels.Contains(novel.Id))
+					if(model.Entity.Books.Contains(novel.Id))
 						list.Add(novel);
 				}
 

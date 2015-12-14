@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace Huginn.Models {
 	using Huginn.Data;
+	using Huginn.Extensions;
 
 	// /books               - IList<BookViewModel> - this *should* return all books, independent of archive state
 	//												 but this may be dependent on the view code in CouchDB
@@ -15,6 +15,82 @@ namespace Huginn.Models {
 	// /entities/<id>/books - IList<BookViewModel>
 	// /profiles/<id>/books - IList<BookViewModel>
 	[XmlRootAttribute("book")]
+	public class BookViewModel: ViewModel<Book> {
+		protected IList<Entity> entities;
+
+		public BookViewModel(Book book, IList<Entity> entities): base(book) {
+			this.entities = entities;
+		}
+
+		//[Cache]
+		[JsonProperty("title")]
+		[XmlElement("title")]
+		public string Title {
+			get {
+				return data.Title.ParseEntities(entities).Prettify();
+			}
+		}
+
+		//[Cache]
+		[JsonProperty("synopsis")]
+		[XmlElement("synopsis")]
+		public string Synopsis {
+			get {
+				return data.Synopsis.ParseEntities(entities).Prettify();
+			}
+		}
+
+		//[Cache]
+		[JsonProperty("publisher")]
+		[XmlElement("publisher")]
+		public string Publisher {
+			get {
+				return data.Publisher.ParseEntities(entities).Prettify();
+			}
+		}
+
+		[JsonProperty("include_license")]
+		[XmlElement("include-license")]
+		public bool IncludeLicense {
+			get {
+				return data.IncludeLicense ?? false;
+			}
+		}
+
+		[JsonProperty("include_synopsis")]
+		[XmlElement("include-synopsis")]
+		public bool IncludeSynopsis {
+			get {
+				return data.IncludeSynopsis ?? false;
+			}
+		}
+
+		[JsonProperty("archive")]
+		[XmlElement("archive")]
+		public bool Archive {
+			get {
+				return data.Archive;
+			}
+		}
+
+		[JsonProperty("image")]
+		[XmlElement("image")]
+		public int? Image {
+			get {
+				return data.Image;
+			}
+		}
+
+		[JsonProperty("editable")]
+		[XmlElement("editable")]
+		public bool Editable {
+			get {
+				return !(Trash || Archive);
+			}
+		}
+	}
+
+	/*[XmlRootAttribute("book")]
 	public class BookViewModel: ViewModel {
 		public BookViewModel() {
 			Object = "book";
@@ -86,7 +162,7 @@ namespace Huginn.Models {
 			}
 		}
 		public IList<ViewModel> Data { get; set; }
-	}
+	}*/
 }
 
 /*

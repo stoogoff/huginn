@@ -19,7 +19,7 @@ namespace Huginn.Data {
 		public string Notes { get; set; }
 
 		[JsonProperty("novels")]
-		public IList<string> Novels { get; set; }
+		public IList<string> Books { get; set; }
 
 		[JsonProperty("entities")]
 		public IDictionary<string, string> Entities { get; set; }

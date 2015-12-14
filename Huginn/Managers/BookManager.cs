@@ -164,7 +164,7 @@ namespace Huginn.Managers {
 			var list = new List<Entity>();
 
 			foreach(var entity in entities) {
-				if(entity.Novels != null && entity.Novels.Contains(id))
+				if(entity.Books != null && entity.Books.Contains(id))
 					list.Add(entity);
 			}
 
