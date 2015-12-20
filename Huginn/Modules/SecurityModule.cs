@@ -2,10 +2,10 @@
 
 namespace Huginn.Modules {
 	using Huginn.Couch;
-	using Huginn.Json;
+	using Huginn.Models;
 	using Huginn.Exceptions;
 
-	public class SecurityModule: NancyModule {
+	/*public class SecurityModule: NancyModule {
 		protected CouchClient client = new CouchClient("muninn");
 
 		public SecurityModule(): this(string.Empty) {
@@ -20,11 +20,11 @@ namespace Huginn.Modules {
 					return null;
 				}
 
-				return ResponseHandler.GetResponse(new UnauthorisedException());
+				return new ErrorViewModel(new UnauthorisedException());
 			};
 		}
 
 		public int AuthorId { get; protected set; }
-	}
+	}*/
 }
 

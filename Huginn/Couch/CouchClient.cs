@@ -103,12 +103,12 @@ namespace Huginn.Couch {
 			Console.WriteLine("{0} - {1} - {2}{3} - {4}", DateTime.UtcNow, request.Method, url, request.Resource, (int) response.StatusCode);
 			#endif
 
-			if(response.ErrorException != null) {
-				throw new ServiceException(response.StatusCode, "Database error", response.ErrorException);
-			}
-
 			if(response.StatusCode == HttpStatusCode.NotFound) {
 				throw new ObjectNotFoundException(new Uri(url + request.Resource));
+			}
+
+			if(response.ErrorException != null) {
+				throw new ServiceException(response.StatusCode, "Database error", response.ErrorException);
 			}
 
 			return JsonConvert.DeserializeObject<T>(response.Content);

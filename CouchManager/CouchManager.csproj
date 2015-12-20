@@ -48,7 +48,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Huginn\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Huginn\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ProjectExtensions>

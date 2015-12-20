@@ -11,6 +11,7 @@ namespace Huginn {
 	using Huginn.Couch;
 	using Huginn.Json;
 	using Huginn.Exceptions;
+	using Huginn.Models;
 
 	public class HuginnBootstrapper: DefaultNancyBootstrapper {
 		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines) {
@@ -72,11 +73,13 @@ namespace Huginn {
 				Console.WriteLine(ex);
 
 				if(ex is ServiceException) {
-					return ResponseHandler.GetResponse(ex as ServiceException);
+					return new ErrorViewModel(ex as ServiceException, ctx.Request);
 				}
 				else {
-					return ResponseHandler.GetResponse(ex);
+					//return ResponseHandler.GetResponse(ex);
 				}
+
+				return ex;
 			};
 
 			// set up couch and register interface -> implementation mappings

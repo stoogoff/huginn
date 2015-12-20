@@ -14,7 +14,7 @@ namespace Huginn.Modules {
 		protected ModelModule(IModelViewService<T,S> service, string basePath): base(basePath) {
 			this.service = service;
 
-			Before += context => {
+			/*Before += context => {
 				var user = (context.CurrentUser as HuginnUser);
 
 				if(user != null) {
@@ -22,8 +22,8 @@ namespace Huginn.Modules {
 					return null;
 				}
 
-				return ResponseHandler.GetResponse(new UnauthorisedException());
-			};
+				return new ErrorViewModel(new UnauthorisedException());
+			};*/
 
 			// index of T
 			Get["/"] = parameters => service.All();
@@ -48,13 +48,13 @@ namespace Huginn.Modules {
 				return ResponseHandler.GetResponse(HttpStatusCode.Created, service.Save(id, model));
 			};*/
 
-			Delete["/{id}/revision/{revision}"] = parameters => {
+			/*Delete["/{id}/revision/{revision}"] = parameters => {
 				var id = parameters.id.ToString();
 				var revision = parameters.revision.ToString();
 
 				// TODO should this be something other than HttpStatusCode.Created???
 				return ResponseHandler.GetResponse(HttpStatusCode.Created, service.Delete(id, revision));
-			};
+			};*/
 
 			// TODO versions
 		}

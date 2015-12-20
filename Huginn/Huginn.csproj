@@ -52,7 +52,6 @@
     <Compile Include="Json\DateTimeConverter.cs" />
     <Compile Include="HuginnBootstrapper.cs" />
     <Compile Include="Data\Proxy.cs" />
-    <Compile Include="Json\ResponseHandler.cs" />
     <Compile Include="HuginnUser.cs" />
     <Compile Include="Modules\SecurityModule.cs" />
     <Compile Include="Modules\AncillaryModule.cs" />
@@ -81,24 +80,26 @@
     <Compile Include="Services\ChapterService.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\EntityService.cs" />
+    <Compile Include="Exceptions\ExceptionHandler.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Nancy">
-      <HintPath>packages\Nancy.1.1\lib\net40\Nancy.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy.Hosting.Self">
-      <HintPath>packages\Nancy.Hosting.Self.1.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="RestSharp">
-      <HintPath>packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml" />
+    <Reference Include="RestSharp">
+      <HintPath>packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <Package>monodevelop</Package>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self">
+      <HintPath>packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy">
+      <HintPath>packages\Nancy.1.4.2\lib\net40\Nancy.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

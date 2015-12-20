@@ -5,7 +5,7 @@ namespace Huginn.Modules {
 	using Huginn.Data;
 	using Huginn.Json;
 
-	public class AncillaryModule: SecurityModule {
+	/*public class AncillaryModule: SecurityModule {
 		public AncillaryModule() {
 			// latest changes
 			Get["/latest"] = parameters => GetLatest(10);
@@ -34,6 +34,5 @@ namespace Huginn.Modules {
 
 			return result.ToList();
 		}
-	}
+	}*/
 }
-

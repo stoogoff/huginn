@@ -21,14 +21,13 @@ namespace Huginn.Exceptions {
 
 		public HttpStatusCode StatusCode { get; set; }
 		public Uri Resource { get; set; }
+	}
+}
 
-		// TODO output for this should be simpler:
-		/*
+// TODO output for this should be simpler:
+/*
 			{
 				"status_code": 401,
 				"message": "Unauthorized",
 			}
 		*/
-	}
-}
-

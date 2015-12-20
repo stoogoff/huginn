@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Nancy.Json;
 
 namespace Huginn.Json {
-	public class DateTimeConverter: JavaScriptPrimitiveConverter {
+	/*public class DateTimeConverter: JavaScriptPrimitiveConverter {
 		public DateTimeConverter() { }
 
 		public override IEnumerable<Type> SupportedTypes {
@@ -33,6 +33,6 @@ namespace Huginn.Json {
 
 			return null;
 		}
-	}
+	}*/
 }
 
