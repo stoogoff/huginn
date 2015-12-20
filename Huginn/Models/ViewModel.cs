@@ -50,19 +50,9 @@ namespace Huginn.Models {
 		[XmlIgnore]
 		public string Object {
 			get {
-				// switch or map
-				/*switch(typeof(T)) {
-				case Book:
-					return "book";
-				case Entity:
-					return "entity";
-				case Profile:
-					return "profile";
-				case Chapter:
-					return "chapter";
-				}*/
+				var type = data.GetType().ToString().Split(new [] { '.' });
 
-				return "object";
+				return type[type.Length - 1].ToLower();
 			}
 		}
 

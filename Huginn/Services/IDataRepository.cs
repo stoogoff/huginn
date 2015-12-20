@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Huginn.Services {
+	using Huginn.Couch;
 	using Huginn.Data;
 
 	public interface IDataRepository {
@@ -18,6 +19,11 @@ namespace Huginn.Services {
 
 		// delete an existing object
 		bool DeleteObject(string id, string revision);
+
+		// view methods
+		IList<T> View<T>(string designDoc, string view);
+
+		IList<T> View<T>(string designDoc, string view, ViewQuery query);
 	}
 }
 

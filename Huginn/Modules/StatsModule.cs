@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Nancy;
 
 namespace Huginn.Modules {
-	using Huginn.Couch;
+	/*using Huginn.Couch;
 	using Huginn.Json;
 	using Huginn.Extensions;
 
@@ -100,6 +100,6 @@ namespace Huginn.Modules {
 
 			return response;
 		}
-	}
+	}*/
 }
 

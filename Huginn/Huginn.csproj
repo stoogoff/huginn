@@ -44,15 +44,10 @@
     <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="Exceptions\ObjectNotFoundException.cs" />
     <Compile Include="Exceptions\UnauthorisedException.cs" />
-    <Compile Include="Managers\ProfileManager.cs" />
     <Compile Include="Data\Chapter.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\Profile.cs" />
-    <Compile Include="Managers\DataManager.cs" />
-    <Compile Include="Managers\ChapterManager.cs" />
-    <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Data\ChapterSummary.cs" />
-    <Compile Include="Json\Models.cs" />
     <Compile Include="Json\SerialiserSettings.cs" />
     <Compile Include="Json\DateTimeConverter.cs" />
     <Compile Include="HuginnBootstrapper.cs" />
@@ -67,9 +62,7 @@
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Data\Book.cs" />
     <Compile Include="Data\BookSort.cs" />
-    <Compile Include="Managers\BookManager.cs" />
     <Compile Include="Modules\BookModule.cs" />
-    <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Models\BookViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
@@ -80,12 +73,14 @@
     <Compile Include="Models\RawChapterViewModel.cs" />
     <Compile Include="Services\IModelViewService.cs" />
     <Compile Include="Services\BookService.cs" />
-    <Compile Include="Modules\TestModule.cs" />
     <Compile Include="Json\JsonSerialiser.cs" />
     <Compile Include="Couch\ICouchClient.cs" />
     <Compile Include="Services\CouchRepository.cs" />
     <Compile Include="Services\IDataRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\ChapterService.cs" />
+    <Compile Include="Services\ProfileService.cs" />
+    <Compile Include="Services\EntityService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Nancy">
@@ -112,7 +107,6 @@
   <ItemGroup>
     <Folder Include="Modules\" />
     <Folder Include="Couch\" />
-    <Folder Include="Managers\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Data\" />
     <Folder Include="Json\" />

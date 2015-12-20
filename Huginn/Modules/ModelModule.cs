@@ -2,15 +2,18 @@
 using Nancy.ModelBinding;
 
 namespace Huginn.Modules {
-	/*using Huginn.Services;
+	using Huginn.Data;
+	using Huginn.Models;
+	using Huginn.Services;
 	using Huginn.Exceptions;
-	using Huginn.Managers;
 	using Huginn.Json;
 
-	public abstract class ModelModule<T,S>: NancyModule where T: Huginn.Models.ViewModel<S> {
+	public abstract class ModelModule<T,S>: NancyModule where S: CouchData where T: ViewModel<S> {
 		protected IModelViewService<T,S> service; // This **must** be set by inheriting classes
 
-		protected ModelModule(string basePath): base(basePath) {
+		protected ModelModule(IModelViewService<T,S> service, string basePath): base(basePath) {
+			this.service = service;
+
 			Before += context => {
 				var user = (context.CurrentUser as HuginnUser);
 
@@ -25,11 +28,11 @@ namespace Huginn.Modules {
 			// index of T
 			Get["/"] = parameters => service.All();
 
-			Post["/"] = parameters => {
+			/*Post["/"] = parameters => {
 				var model = this.Bind<T>();
 
 				return ResponseHandler.GetResponse(HttpStatusCode.Created, service.Create(model));
-			};
+			};*/
 
 			// single T based on ID
 			Get["/{id}"] = parameters => {
@@ -38,12 +41,12 @@ namespace Huginn.Modules {
 				return service.Get(id);
 			};
 
-			Put["/{id}"] = parameters => {
+			/*Put["/{id}"] = parameters => {
 				var id = parameters.id.ToString();
 				var model = this.Bind<T>();
 
 				return ResponseHandler.GetResponse(HttpStatusCode.Created, service.Save(id, model));
-			};
+			};*/
 
 			Delete["/{id}/revision/{revision}"] = parameters => {
 				var id = parameters.id.ToString();
@@ -55,6 +58,6 @@ namespace Huginn.Modules {
 
 			// TODO versions
 		}
-	}*/
+	}
 }
 

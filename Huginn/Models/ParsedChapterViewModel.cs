@@ -37,9 +37,9 @@ namespace Huginn.Models {
 		//	- typography converted
 		// TODO this should probably be a CData section
 		//[Cache]
-		[JsonProperty("markdown_content")]
-		[XmlElement("markdown-content")]
-		public string MarkdownContent {
+		[JsonProperty("content")]
+		[XmlElement("content")]
+		public string Content {
 			get {
 				return data.Content.ParseEntities(entities).Prettify();
 			}
@@ -58,7 +58,7 @@ namespace Huginn.Models {
 		[XmlElement("word-count")]
 		public int WordCount {
 			get {
-				return MarkdownContent.WordCount();
+				return Content.WordCount();
 			}
 		}
 
@@ -67,7 +67,8 @@ namespace Huginn.Models {
 		// see http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#pagination
 		// ID of next chapter or null (or Proxy instance?)
 		//[LinkHeader(Rel="next")]
-		[JsonIgnore]
+		//[JsonIgnore]
+		[JsonProperty("next_chapter")]
 		[XmlIgnore]
 		public string NextChapter {
 			get {
@@ -89,7 +90,8 @@ namespace Huginn.Models {
 
 		// ID of previous chapter or null (or Proxy instance?)
 		//[LinkHeader(Rel="previous")]
-		[JsonIgnore]
+		//[JsonIgnore]
+		[JsonProperty("previous_chapter")]
 		[XmlIgnore]
 		public string PreviousChapter {
 			get {

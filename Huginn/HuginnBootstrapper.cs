@@ -79,9 +79,6 @@ namespace Huginn {
 				}
 			};
 
-			// set up custom DateTime converter for JSON serialisation
-			JsonSettings.PrimitiveConverters.Add(new DateTimeConverter());
-
 			// set up couch and register interface -> implementation mappings
 			var host = ConfigurationManager.AppSettings["CouchHost"] ?? "localhost";
 			var port = ConfigurationManager.AppSettings["CouchPort"] ?? "5984";

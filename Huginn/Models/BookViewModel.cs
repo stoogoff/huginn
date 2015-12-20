@@ -88,6 +88,10 @@ namespace Huginn.Models {
 				return !(Trash || Archive);
 			}
 		}
+
+		public override string ToString() {
+			return string.Format("[BookViewModel: Title={0}, Synopsis={1}, Publisher={2}, IncludeLicense={3}, IncludeSynopsis={4}, Archive={5}, Image={6}, Editable={7}]", Title, Synopsis, Publisher, IncludeLicense, IncludeSynopsis, Archive, Image, Editable);
+		}
 	}
 
 	/*[XmlRootAttribute("book")]

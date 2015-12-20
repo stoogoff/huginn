@@ -21,10 +21,7 @@ namespace Huginn.Services {
 
 		public int AuthorId { get; set; }
 
-		/*public IList<T> AllObjects<T>() {
-			return AllObjects<T>(view);
-		}*/
-
+		#region Generic low-level object manipulation methods
 		public IList<T> AllObjects<T>(string view) {
 			var query = new ViewQuery {
 				StartKey = ViewQuery.GetStartKey(AuthorId),
@@ -63,7 +60,22 @@ namespace Huginn.Services {
 
 			return response.Ok;
 		}
-	}
+		#endregion
 
+		#region View proxy methods
+		public IList<T> View<T>(string designDoc, string view) {
+			var query = new ViewQuery {
+				StartKey = ViewQuery.GetStartKey(AuthorId),
+				EndKey = ViewQuery.GetEndKey(AuthorId)
+			};
+
+			return View<T>(designDoc, view, query);
+		}
+
+		public IList<T> View<T>(string designDoc, string view, ViewQuery query) {
+			return Client.GetView<T>(designDoc, view, query).ToList();
+		}
+		#endregion
+	}
 }
 

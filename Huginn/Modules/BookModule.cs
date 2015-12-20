@@ -1,41 +1,44 @@
 ﻿using Nancy.ModelBinding;
 
 namespace Huginn.Modules {
-	/*using Huginn.Services;
+	using Huginn.Services;
 	using Huginn.Data;
-	using Huginn.Json;
+	using Huginn.Models;
 
-	public class BookModule: ModelModule <Huginn.Data.Book> {
-		public BookModule(): base("/books") {
-			service = new BookService();
+	public class BookModule: ModelModule<BookViewModel, Book> {
+		public BookModule(IBookService service): base(service, "/books") {
+			Get["/archived"] = parameters => service.Archived();
 
-			Get["/archive"] = parameters => (manager as BookManager).Archive();
-
-			Put["/{id}/sort"] = parameters => {
+			/*Put["/{id}/sort"] = parameters => {
 				var sort = this.Bind<BookSort>();
 
 				(manager as BookManager).Sort(sort);
 
 				return "OK";
-			};
-
-			Get["/{id}/data"] = parameters => {
-				var id = parameters.id.ToString();
-
-				return ResponseHandler.GetResponse((manager as BookManager).Data(id));
-			};
+			};*/
 
 			Get["/{id}/chapters"] = parameters => {
 				var id = parameters.id.ToString();
 
-				return ResponseHandler.GetResponse((manager as BookManager).Chapters(id));
+				return service.Chapters(id);
+			};
+			Get["/{book}/chapters/{chapter}"] = parameters => {
+				var book = parameters.book.ToString();
+				var chapter = parameters.chapter.ToString();
+
+				return service.Chapter(book, chapter);
 			};
 			Get["/{id}/entities"] = parameters => {
 				var id = parameters.id.ToString();
 
-				return ResponseHandler.GetResponse((manager as BookManager).Entities(id));
+				return service.Entities(id);
+			};
+			Get["/{id}/profiles"] = parameters => {
+				var id = parameters.id.ToString();
+
+				return service.Profiles(id);
 			};
 		}
-	}*/
+	}
 }
 

@@ -1,18 +1,17 @@
 ﻿
 namespace Huginn.Modules {
-	/*using Huginn.Managers;
-	using Huginn.Json;
+	using Huginn.Services;
+	using Huginn.Models;
+	using Huginn.Data;
 
-	public class ProfileModule: ModelModule<Huginn.Data.Profile> {
-		public ProfileModule(): base("/profiles") {
-			manager = new ProfileManager();
-
-			Get["/{id}/novels"] = parameters => {
+	public class ProfileModule: ModelModule<ProfileViewModel, Profile> {
+		public ProfileModule(IProfileService service): base(service, "/profiles") {
+			Get["/{id}/books"] = parameters => {
 				var id = parameters.id.ToString();
 
-				return ResponseHandler.GetResponse((manager as ProfileManager).Novels(id));
+				return service.Books(id);
 			};
 		}
-	}*/
+	}
 }
 

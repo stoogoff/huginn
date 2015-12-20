@@ -11,11 +11,7 @@ namespace Huginn.Models {
 	// /chapters/<id> - UnparsedChapterViewModel
 	[XmlRootAttribute("chapter")]
 	public class UnparsedChapterViewModel: ViewModel<Chapter> {
-		protected IList<Entity> entities;
-
-		public UnparsedChapterViewModel(Chapter chapter, IList<Entity> entities): base(chapter) {
-			this.entities = entities;
-		}
+		public UnparsedChapterViewModel(Chapter chapter): base(chapter) { }
 
 		// raw chapter Title
 		[JsonProperty("title")]
@@ -41,14 +37,6 @@ namespace Huginn.Models {
 		public int Sort {
 			get {
 				return data.Sort;
-			}
-		}
-
-		[JsonProperty("word_count")]
-		[XmlElement("word-count")]
-		public int WordCount {
-			get {
-				return data.Content.ParseEntities(entities).Prettify().WordCount();
 			}
 		}
 	}
