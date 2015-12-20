@@ -25,7 +25,7 @@ namespace Huginn.Services {
 		}
 
 		public EntityViewModel Get(string id) {
-			var entity = Repository.GetObject<Entity>(id);
+			var entity = GetObject<Entity>(id);
 
 			return new EntityViewModel(entity);
 		}
@@ -45,12 +45,12 @@ namespace Huginn.Services {
 
 		#region implement IEntityService
 		public IList<BookViewModel> Books(string id) {
-			var entity = Repository.GetObject<Entity>(id);
+			var entity = GetObject<Entity>(id);
 			var response = new List<BookViewModel>();
 
 			if(entity.Books.Count > 0) {
 				foreach(var bookId in entity.Books) {
-					var book = Repository.GetObject<Book>(bookId);
+					var book = GetObject<Book>(bookId);
 
 					response.Add(new BookViewModel(book, GetEntitiesForBook(bookId)));
 				}

@@ -14,7 +14,7 @@ namespace Huginn.Modules {
 		protected ModelModule(IModelViewService<T,S> service, string basePath): base(basePath) {
 			this.service = service;
 
-			/*Before += context => {
+			Before += context => {
 				var user = (context.CurrentUser as HuginnUser);
 
 				if(user != null) {
@@ -22,8 +22,8 @@ namespace Huginn.Modules {
 					return null;
 				}
 
-				return new ErrorViewModel(new UnauthorisedException());
-			};*/
+				throw ServiceException.Unauthorised();
+			};
 
 			// index of T
 			Get["/"] = parameters => service.All();

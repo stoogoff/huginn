@@ -3,6 +3,7 @@
 namespace Huginn.Services {
 	using Huginn.Couch;
 	using Huginn.Data;
+	using Huginn.Exceptions;
 
 	public abstract class BaseService {
 		private int authorId;
@@ -37,6 +38,26 @@ namespace Huginn.Services {
 		/// <param name="revision">Revision.</param>
 		public bool Delete(string id, string revision) {
 			return Repository.DeleteObject(id, revision);
+		}
+
+		/// <summary>
+		/// Gets an object from the repository and handles null checks and authorisation checks.
+		/// </summary>
+		/// <returns>The object.</returns>
+		/// <param name="id">Identifier.</param>
+		/// <typeparam name="T">The 1st type parameter.</typeparam>
+		protected T GetObject<T>(string id) where T: CouchData {
+			var obj = Repository.GetObject<T>(id);
+
+			if(obj == null) {
+				throw ServiceException.NotFound(id);
+			}
+
+			if(obj.Author != AuthorId) {
+				throw ServiceException.Forbidden(obj.Id);
+			}
+
+			return obj;
 		}
 
 		/// <summary>

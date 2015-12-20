@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Text;
 using Nancy;
 using Nancy.TinyIoc;
 using Nancy.Bootstrapper;
-using Nancy.Json;
+using Nancy.Responses.Negotiation;
 
 namespace Huginn {
 	using Huginn.Couch;
-	using Huginn.Json;
 	using Huginn.Exceptions;
 	using Huginn.Models;
 
@@ -19,7 +18,7 @@ namespace Huginn {
 
 			// get authentication information
 			pipelines.BeforeRequest += context => {
-				var user = new HuginnUser {
+				/*var user = new HuginnUser {
 					AuthorId = 2,
 					UserName = "storytella",
 					Claims = new List<string>()
@@ -27,59 +26,51 @@ namespace Huginn {
 
 				context.CurrentUser = user;
 
-				return null;
+				return null;*/
 
-				/*var auth = context.Request.Headers.Authorization;
+				var auth = context.Request.Headers.Authorization;
 
 				if(string.IsNullOrEmpty(auth)) {
-					return ResponseHandler.GetResponse(new UnauthorisedException());
+					throw ServiceException.Unauthorised();
 				}
 
-				try {
-					auth = Encoding.UTF8.GetString(Convert.FromBase64String(auth.Replace("Basic ", string.Empty)));
+				auth = Encoding.UTF8.GetString(Convert.FromBase64String(auth.Replace("Basic ", string.Empty)));
 
-					var components = auth.Split(new [] { ':' });
+				var components = auth.Split(new [] { ':' });
 
-					if(components.Length < 2) {
-						throw new UnauthorisedException();
-					}
-
-					int author;
-					int.TryParse(components[0], out author);
-
-					var user = new HuginnUser {
-						AuthorId = author,
-						UserName = components[1],
-						Claims = new List<string>()
-					};
-
-					context.CurrentUser = user;
-
-					return null;
+				if(components.Length < 2) {
+					throw ServiceException.BadRequest();
 				}
-				catch(FormatException fex) {
-					return ResponseHandler.GetResponse(new UnauthorisedException(fex));
-				}
-				catch(ServiceException se) {
-					return ResponseHandler.GetResponse(se);
-				}
-				catch(Exception ex) {
-					return ResponseHandler.GetResponse(ex);
-				}*/
+
+				int author;
+				int.TryParse(components[0], out author);
+
+				var user = new HuginnUser {
+					AuthorId = author,
+					UserName = components[1],
+					Claims = new List<string>()
+				};
+
+				context.CurrentUser = user;
+
+				return null;
 			};
 
 			// handle all exceptions and return a JSON response
-			pipelines.OnError += (ctx, ex) => {
-				Console.WriteLine(ex);
+			pipelines.OnError += (context, exception) => {
+				Console.WriteLine(exception);
 
-				if(ex is ServiceException) {
-					return new ErrorViewModel(ex as ServiceException, ctx.Request);
-				}
-				else {
-					//return ResponseHandler.GetResponse(ex);
+				if(exception is ServiceException) {
+					var serviceException = exception as ServiceException;
+
+					return new Negotiator(context)
+						.WithStatusCode(serviceException.StatusCode)
+						.WithModel(new ErrorViewModel(serviceException, context.Request));
 				}
 
-				return ex;
+				return new Negotiator(context)
+					.WithStatusCode(HttpStatusCode.InternalServerError)
+					.WithModel(exception.Message);
 			};
 
 			// set up couch and register interface -> implementation mappings

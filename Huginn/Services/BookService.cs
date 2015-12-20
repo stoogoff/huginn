@@ -3,6 +3,7 @@
 namespace Huginn.Services {
 	using Huginn.Couch;
 	using Huginn.Data;
+	using Huginn.Exceptions;
 	using Huginn.Models;
 
 	public interface IBookService: IModelViewService<BookViewModel, Book> {
@@ -12,8 +13,6 @@ namespace Huginn.Services {
 		IList<EntityViewModel> Entities(string id);
 		IList<ProfileViewModel> Profiles(string id);
 	}
-
-	// consider converting this to a single service which can handle getting everything as it's all connected up anyway
 
 	public class BookService: BaseService, IBookService {
 		public BookService(IDataRepository repo): base(repo) { }
@@ -32,7 +31,7 @@ namespace Huginn.Services {
 		}
 
 		public BookViewModel Get(string id) {
-			var book = Repository.GetObject<Book>(id);
+			var book = GetObject<Book>(id);
 
 			return new BookViewModel(book, GetEntitiesForBook(book.Id));
 		}
@@ -80,11 +79,10 @@ namespace Huginn.Services {
 		}
 
 		public ParsedChapterViewModel Chapter(string bookId, string chapterId) {
-			var chapter = Repository.GetObject<Chapter>(chapterId);
+			var chapter = GetObject<Chapter>(chapterId);
 
-			// TODO proper exceptions
 			if(chapter.Book != bookId) {
-				throw new System.Exception("Book doesn't belong to chapter");
+				throw ServiceException.BadRequest(string.Format("Chapter '{0}' does not belong to Book '{1}'.", chapterId, bookId));
 			}
 
 			return new ParsedChapterViewModel(chapter, GetEntitiesForBook(bookId), GetChaptersForBook(bookId));
@@ -103,7 +101,7 @@ namespace Huginn.Services {
 		}
 
 		public IList<ProfileViewModel> Profiles(string id) {
-			var book = Repository.GetObject<Book>(id);
+			var book = GetObject<Book>(id);
 			var profiles = Repository.AllObjects<Profile>("contributors");
 			var response = new List<ProfileViewModel>();
 

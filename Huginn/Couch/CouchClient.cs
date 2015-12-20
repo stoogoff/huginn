@@ -34,7 +34,12 @@ namespace Huginn.Couch {
 
 		#region Single object crud methods
 		public T GetDocument<T>(string id) {
-			return Execute<T>(new RestRequest(id, Method.GET));
+			try {
+				return Execute<T>(new RestRequest(id, Method.GET));
+			}
+			catch(CouchException) {
+				return default(T);
+			}
 		}
 
 		public CouchResponse Save(object model) {
@@ -104,11 +109,11 @@ namespace Huginn.Couch {
 			#endif
 
 			if(response.StatusCode == HttpStatusCode.NotFound) {
-				throw new ObjectNotFoundException(new Uri(url + request.Resource));
+				throw new CouchException(HttpStatusCode.NotFound, new Uri(url + request.Resource), "Object not found.");
 			}
 
 			if(response.ErrorException != null) {
-				throw new ServiceException(response.StatusCode, "Database error", response.ErrorException);
+				throw new CouchException(response.StatusCode, response.ErrorMessage);
 			}
 
 			return JsonConvert.DeserializeObject<T>(response.Content);

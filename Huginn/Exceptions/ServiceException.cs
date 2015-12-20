@@ -3,31 +3,45 @@ using Nancy;
 
 namespace Huginn.Exceptions {
 	public class ServiceException: ApplicationException {
-		public ServiceException(HttpStatusCode status, string message, Exception innerException): base(message, innerException) {
+		public const string FORBIDDEN = "You are not authorised to access resource '{0}'.";
+		public const string NOT_FOUND = "Object with ID '{0}' not found.";
+
+		public ServiceException(HttpStatusCode status, string message): base(message) {
 			StatusCode = status;
 		}
-		public ServiceException(System.Net.HttpStatusCode status, string message, Exception innerException): base(message, innerException) {
-			//int tmpStatus = (int) status;
 
-			StatusCode = (HttpStatusCode) Enum.Parse(typeof(HttpStatusCode), status.ToString());
-		}
-		public ServiceException(HttpStatusCode status, string message): this(status, null, message) {
+		public HttpStatusCode StatusCode { get; protected set; }
 
-		}
-		public ServiceException(HttpStatusCode status, Uri resource, string message): base(message) {
-			StatusCode = status;
-			Resource = resource;
+		public static ForbiddenException Forbidden(string id) {
+			return new ForbiddenException(string.Format(FORBIDDEN, id));
 		}
 
-		public HttpStatusCode StatusCode { get; set; }
-		public Uri Resource { get; set; }
+		public static ForbiddenException Forbidden() {
+			return new ForbiddenException();
+		}
+
+		public static ObjectNotFoundException NotFound(string id) {
+			return new ObjectNotFoundException(string.Format(NOT_FOUND, id));
+		}
+
+		public static ObjectNotFoundException NotFound() {
+			return new ObjectNotFoundException();
+		}
+
+		public static UnauthorisedException Unauthorised() {
+			return new UnauthorisedException();
+		}
+
+		public static UnauthorisedException Unauthorised(string message) {
+			return new UnauthorisedException(message);
+		}
+
+		public static BadRequestException BadRequest() {
+			return new BadRequestException();
+		}
+
+		public static BadRequestException BadRequest(string message) {
+			return new BadRequestException(message);
+		}
 	}
 }
-
-// TODO output for this should be simpler:
-/*
-			{
-				"status_code": 401,
-				"message": "Unauthorized",
-			}
-		*/

@@ -3,6 +3,7 @@
 namespace Huginn.Services {
 	using Huginn.Couch;
 	using Huginn.Data;
+	using Huginn.Exceptions;
 	using Huginn.Models;
 
 	public interface IProfileService: IModelViewService<ProfileViewModel, Profile> {
@@ -26,7 +27,7 @@ namespace Huginn.Services {
 		}
 
 		public ProfileViewModel Get(string id) {
-			var profile = Repository.GetObject<Profile>(id);
+			var profile = GetObject<Profile>(id);
 
 			return new ProfileViewModel(profile);
 		}
@@ -55,6 +56,10 @@ namespace Huginn.Services {
 			var response = new List<BookViewModel>();
 
 			foreach(var book in books) {
+				if(book.Author != AuthorId) {
+					throw ServiceException.Forbidden(book.Id);
+				}
+
 				response.Add(new BookViewModel(book, GetEntitiesForBook(book.Id)));
 			}
 

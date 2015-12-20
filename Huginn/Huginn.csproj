@@ -42,8 +42,6 @@
     <Compile Include="Couch\ViewResult.cs" />
     <Compile Include="Couch\ViewQuery.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
-    <Compile Include="Exceptions\ObjectNotFoundException.cs" />
-    <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Data\Chapter.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\Profile.cs" />
@@ -80,8 +78,12 @@
     <Compile Include="Services\ChapterService.cs" />
     <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Services\EntityService.cs" />
-    <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
+    <Compile Include="Couch\CouchException.cs" />
+    <Compile Include="Exceptions\ObjectNotFoundException.cs" />
+    <Compile Include="Exceptions\UnauthorisedException.cs" />
+    <Compile Include="Exceptions\BadRequestException.cs" />
+    <Compile Include="Exceptions\ForbiddenException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
